@@ -18,7 +18,7 @@
 分布式软总线子系统主要代码目录结构如下：
 
 ```
-foundation/communication/communication_cangjie_api
+foundation/communication/communication_cangjie_wrapper
 ├── ohos             # 仓颉IPC接口实现
 ├── kit              # 仓颉kit化代码
 ├── figures          # 存放readme中的架构图
@@ -43,6 +43,6 @@ foundation/communication/communication_cangjie_api
 
 **分布式软总线子系统**
 
-communication_cangjie_api
+communication_cangjie_wrapper
 
 [communication\_ipc](https://gitee.com/openharmony/communication_ipc)

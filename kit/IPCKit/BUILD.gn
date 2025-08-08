@@ -21,6 +21,6 @@ ohos_cj_library("kit.IPCKit") {
 
   kit = true
   subsystem_name = "communication"
-  part_name = "communication_cangjie_api"
+  part_name = "communication_cangjie_wrapper"
   lib_name = "IPCKit"
 }

@@ -19,7 +19,7 @@ The DSoftBus subsystem provides the following communication capabilities for Ope
 The DSoftBus directory structure is as follows:
 
 ```
-foundation/communication/communication_cangjie_api
+foundation/communication/communication_cangjie_wrapper
 ├── ohos             # Cangjie DSoftBus code
 ├── kit              # Cangjie kit code
 ├── figures          # architecture pictures
@@ -44,6 +44,6 @@ In an RPC, the client process obtains the proxy of the process that provides the
 
 **DSoftBus subsystem**
 
-communication_cangjie_api
+communication_cangjie_wrapper
 
 [communication\_ipc](https://gitee.com/openharmony/communication_ipc)

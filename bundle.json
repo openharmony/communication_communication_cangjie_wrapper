@@ -1,5 +1,5 @@
 {
-    "name": "@ohos/communication_cangjie_api",
+    "name": "@ohos/communication_cangjie_wrapper",
     "version": "6.0",
     "description": "ipc",
     "publishAs": "code-segment",
@@ -8,10 +8,10 @@
     "repository": "",
     "license": "Apache License 2.0",
     "segment": {
-      "destPath": "foundation/communication/communication_cangjie_api"
+      "destPath": "foundation/communication/communication_cangjie_wrapper"
     },
     "component": {
-      "name": "communication_cangjie_api",
+      "name": "communication_cangjie_wrapper",
       "subsystem": "communication",
       "adapted_system_type": [
         "standard"
@@ -25,17 +25,17 @@
       "ram": "100KB",
       "deps": {
         "components": [
-          "cangjie_api"
+          "cangjie_ark_interop"
         ]
       },
       "build": {
         "sub_component": [
-          "//foundation/communication/communication_cangjie_api/ohos/rpc:ohos.rpc",
-          "//foundation/communication/communication_cangjie_api/kit/IPCKit:kit.IPCKit"
+          "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc",
+          "//foundation/communication/communication_cangjie_wrapper/kit/IPCKit:kit.IPCKit"
         ],
         "inner_kits": [
           {
-            "name": "//foundation/communication/communication_cangjie_api/ohos/rpc:ohos.rpc"
+            "name": "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc"
           }
         ],
         "test": [

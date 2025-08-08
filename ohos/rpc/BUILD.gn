@@ -31,15 +31,15 @@ ohos_cj_library("ohos.rpc") {
   ]
 
   cj_external_deps = [
-    "cangjie_api:ohos.ffi",
-    "cangjie_api:ohos.labels",
-    "arkui_cangjie_api:ohos.base",
-    "hiviewdfx_cangjie_api:ohos.hilog",
+    "cangjie_ark_interop:ohos.ffi",
+    "cangjie_ark_interop:ohos.labels",
+    "arkui_cangjie_wrapper:ohos.base",
+    "hiviewdfx_cangjie_wrapper:ohos.hilog",
   ]
 
   external_deps = [ "ipc:cj_ipc_ffi" ]
 
   subsystem_name = "communication"
-  part_name = "communication_cangjie_api"
+  part_name = "communication_cangjie_wrapper"
   lib_name = "rpc"
 }

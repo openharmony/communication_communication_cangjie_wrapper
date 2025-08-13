@@ -21,8 +21,8 @@
       "syscap":[
         "SystemCapability.Communication.IPC.Core"
       ],
-      "rom": "500KB",
-      "ram": "100KB",
+      "rom": "300KB",
+      "ram": "900KB",
       "deps": {
         "components": [
           "cangjie_ark_interop"

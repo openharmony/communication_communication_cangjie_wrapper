@@ -1,21 +1,21 @@
-# 分布式软总线子系统<a name="ZH-CN_TOPIC_0000001090266209"></a>
+# 分布式软总线仓颉<a name="ZH-CN_TOPIC_0000001090266209"></a>
 
 ## 简介<a name="section11660541593"></a>
 
-分布式软总线子系统旨在为OpenHarmony系统提供的通信相关的能力，包括：进程间通信RPC（Remote Procedure Call）等通信能力。
+分布式软总线仓颉旨在为OpenHarmony系统提供的通信相关的能力，包括：进程间通信RPC（Remote Procedure Call）等通信能力。
 
 进程间通信：提供不区分设备内或设备间的进程间通信能力。
 
 ## 系统架构<a name="section342962219551"></a>
 
-**图 1**  分布式软总线子系统架构图<a name="fig4460722185514"></a>  
+**图 1**  分布式软总线仓颉架构图<a name="fig4460722185514"></a>  
 
 
-![](figures/zh-cn_image_0000001162307895.png)
+![](figures/communication_cangjie_wrapper_architecture.png)
 
 ## 目录<a name="section161941989596"></a>
 
-分布式软总线子系统主要代码目录结构如下：
+分布式软总线仓颉主要代码目录结构如下：
 
 ```
 foundation/communication/communication_cangjie_wrapper
@@ -41,7 +41,7 @@ foundation/communication/communication_cangjie_wrapper
 
 ## 相关仓<a name="section1371113476307"></a>
 
-**分布式软总线子系统**
+**分布式软总线仓颉**
 
 communication_cangjie_wrapper
 

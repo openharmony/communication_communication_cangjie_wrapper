@@ -1,15 +1,14 @@
-# 分布式软总线仓颉<a name="ZH-CN_TOPIC_0000001090266209"></a>
+# 分布式软总线仓颉接口<a name="ZH-CN_TOPIC_0000001090266209"></a>
 
 ## 简介<a name="section11660541593"></a>
 
-分布式软总线仓颉旨在为OpenHarmony系统提供的通信相关的能力，包括：进程间通信RPC（Remote Procedure Call）等通信能力。
+分布式软总线仓颉接口是在 OpenHarmony 上基于分布式软总线子系统能力之上封装的仓颉API。分布式软总线子系统旨在为OpenHarmony系统提供的通信相关的能力，包括：进程间通信RPC（Remote Procedure Call）等通信能力。
 
 进程间通信：提供不区分设备内或设备间的进程间通信能力。
 
 ## 系统架构<a name="section342962219551"></a>
 
 **图 1**  分布式软总线仓颉架构图<a name="fig4460722185514"></a>  
-
 
 ![](figures/communication_cangjie_wrapper_architecture.png)
 
@@ -43,6 +42,4 @@ foundation/communication/communication_cangjie_wrapper
 
 **分布式软总线仓颉**
 
-communication_cangjie_wrapper
-
-[communication\_ipc](https://gitee.com/openharmony/communication_ipc)
+[communication\_ipc](https://gitee.com/openharmony/communication_ipc/blob/master/README.md)

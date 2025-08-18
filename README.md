@@ -1,8 +1,8 @@
-# DSoftBus
+# communication_cangjie_wrapper
 
 ## Introduction
 
-The DSoftBus subsystem provides the following communication capabilities for OpenHarmony:
+The communication_cangjie_wrapper is a Cangjie API encapsulated on OpenHarmony based on the capabilities of the Distributed Softbus Subsystem. The DSoftBus subsystem provides the following communication capabilities for OpenHarmony:
 
 - Remote procedure call (RPC): communications between processes on a device or across devices.
 
@@ -41,9 +41,5 @@ In an RPC, the client process obtains the proxy of the process that provides the
 4.  The proxy returns the result to the client.
 
 ## Repositories Involved
-
-**DSoftBus subsystem**
-
-communication_cangjie_wrapper
 
 [communication\_ipc](https://gitee.com/openharmony/communication_ipc)

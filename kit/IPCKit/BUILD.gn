@@ -14,13 +14,11 @@
 import("//build/ohos.gni")
 import("//build/cangjie/cjc.gni")
 
-ohos_cj_library("kit.IPCKit") {
+ohos_cangjie_shared_library("kit.IPCKit") {
   sources = ["index.cj"]
 
   cj_deps = ["../../ohos/rpc:ohos.rpc"]
 
-  kit = true
   subsystem_name = "communication"
   part_name = "communication_cangjie_wrapper"
-  lib_name = "IPCKit"
 }

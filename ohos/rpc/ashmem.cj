@@ -17,8 +17,16 @@ package ohos.rpc
 
 import ohos.labels.*
 import ohos.ffi.*
-import ohos.base.BusinessException
+import ohos.business_exception.BusinessException
 
+/**
+ * Provides methods related to anonymous shared memory objects,
+ * including creating, closing, mapping, and unmapping an Ashmem object,
+ * reading data from and writing data to an Ashmem object,
+ * obtaining the Ashmem size, and setting Ashmem protection.
+ *
+ * @relation class Ashmem
+ */
 @!APILevel[
     21,
     stagemodelonly: true,
@@ -34,11 +42,9 @@ public class Ashmem <: RemoteDataLite {
     }
 
     /**
-     * The mapped memory is executable.
+     * The mapped memory is executable. Default value is 4.
      *
-     * @type { UInt32 }
-     * @default 4
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static PROT_EXEC: number
      */
     @!APILevel[
         21,
@@ -46,12 +52,11 @@ public class Ashmem <: RemoteDataLite {
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_EXEC: UInt32 = 4
+
     /**
-     * The mapped memory is inaccessible.
+     * The mapped memory is inaccessible. Default value is 0.
      *
-     * @type { UInt32 }
-     * @default 0
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static PROT_NONE: number
      */
     @!APILevel[
         21,
@@ -59,12 +64,11 @@ public class Ashmem <: RemoteDataLite {
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_NONE: UInt32 = 0
+
     /**
-     * The mapped memory is readable.
+     * The mapped memory is readable. Default value is 1.
      *
-     * @type { UInt32 }
-     * @default 1
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static PROT_READ: number
      */
     @!APILevel[
         21,
@@ -72,12 +76,11 @@ public class Ashmem <: RemoteDataLite {
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_READ: UInt32 = 1
+
     /**
-     * The mapped memory is writable.
+     * The mapped memory is writable. Default value is 2.
      *
-     * @type { UInt32 }
-     * @default 2
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static PROT_WRITE: number
      */
     @!APILevel[
         21,
@@ -92,12 +95,12 @@ public class Ashmem <: RemoteDataLite {
      * @param { String } name - Name of the Ashmem object to create.
      * @param { Int32 } size - Size (in bytes) of the Ashmem object to create.
      * @returns { Ashmem } Return the Ashmem object if it is created successfully; return null otherwise.
-     * @throws { BusinessError } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The Ashmem name passed is empty;
      *     4.The Ashmem size passed is less than or equal to 0.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static create(name: string, size: number): Ashmem
      */
     @!APILevel[
         21,
@@ -106,12 +109,12 @@ public class Ashmem <: RemoteDataLite {
     ]
     public static func create(name: String, size: Int32): Ashmem {
         if (name.isEmpty()) {
-            throw BusinessException(ErrorCode.CHECK_PARAM_ERROR, "Parameter error.")
+            throw BusinessException(ErrorCode.CheckParamError.value, "Parameter error.")
         }
         try (cname = unsafe { LibC.mallocCString(name).asResource() }) {
             let id = unsafe { FfiRpcAshmemImplCreate(cname.value, size) }
             if (id < 0) {
-                throw BusinessException(ErrorCode.CHECK_PARAM_ERROR, "Parameter error.")
+                throw BusinessException(ErrorCode.CheckParamError.value, "Parameter error.")
             }
             return Ashmem(id)
         }
@@ -124,11 +127,11 @@ public class Ashmem <: RemoteDataLite {
      *
      * @param { Ashmem } ashmem - Existing Ashmem object.
      * @returns { Ashmem } Ashmem object created.
-     * @throws { BusinessError } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The passed parameter is not an Ahmem object;
      *     3.The ashmem instance for obtaining packaging is empty.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static create(ashmem: Ashmem): Ashmem
      */
     @!APILevel[
         21,
@@ -138,14 +141,14 @@ public class Ashmem <: RemoteDataLite {
     public static func create(ashmem: Ashmem): Ashmem {
         var errCode: Int32 = 0
         let id = unsafe { FfiRpcAshmemImplCreateFromExisting(ashmem.getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return Ashmem(id)
     }
 
     /**
      * Closes this Ashmem object.
      *
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation closeAshmem(): void
      */
     @!APILevel[
         21,
@@ -159,7 +162,7 @@ public class Ashmem <: RemoteDataLite {
     /**
      * Deletes the mappings for the specified address range of this Ashmem object.
      *
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation unmapAshmem(): void
      */
     @!APILevel[
         21,
@@ -173,8 +176,8 @@ public class Ashmem <: RemoteDataLite {
     /**
      * Obtains the mapped memory size of this Ashmem object.
      *
-     * @returns { number } Memory size mapped.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @returns { Int32 } Memory size mapped.
+     * @relation getAshmemSize(): number
      */
     @!APILevel[
         21,
@@ -184,7 +187,7 @@ public class Ashmem <: RemoteDataLite {
     public func getAshmemSize(): Int32 {
         var errCode: Int32 = 0
         let size = unsafe { FfiRpcAshmemImplGetAshmemSize(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return size
     }
 
@@ -193,12 +196,12 @@ public class Ashmem <: RemoteDataLite {
      * The size of the mapping region is specified by this Ashmem object.
      *
      * @param { UInt32 } mapType - Protection level of the memory region to which the shared file is mapped.
-     * @throws { BusinessError } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The passed mapType exceeds the maximum protection level.
-     * @throws { BusinessError } 1900001 - Failed to call mmap.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @throws { BusinessException } 1900001 - Failed to call mmap.
+     * @relation mapTypedAshmem(mapType: number): void
      */
     @!APILevel[
         21,
@@ -208,14 +211,14 @@ public class Ashmem <: RemoteDataLite {
     public func mapTypedAshmem(mapType: UInt32): Unit {
         var errCode = 0i32
         unsafe { FfiRpcAshmemImplMapTypedAshmem(getID(), mapType, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Maps the shared file to the readable and writable virtual address space of the process.
      *
-     * @throws { BusinessError } 1900001 - Failed to call mmap.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @throws { BusinessException } 1900001 - Failed to call mmap.
+     * @relation mapReadWriteAshmem(): void
      */
     @!APILevel[
         21,
@@ -225,14 +228,14 @@ public class Ashmem <: RemoteDataLite {
     public func mapReadWriteAshmem(): Unit {
         var errCode = 0i32
         unsafe { FfiRpcAshmemImplMapReadWriteAshmem(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Maps the shared file to the read-only virtual address space of the process.
      *
-     * @throws { BusinessError } 1900001 - Failed to call mmap.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @throws { BusinessException } 1900001 - Failed to call mmap.
+     * @relation mapReadonlyAshmem(): void
      */
     @!APILevel[
         21,
@@ -242,18 +245,18 @@ public class Ashmem <: RemoteDataLite {
     public func mapReadonlyAshmem(): Unit {
         var errCode = 0i32
         unsafe { FfiRpcAshmemImplMapReadonlyAshmem(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Sets the protection level of the memory region to which the shared file is mapped.
      *
-     * @param { number } protectionType - Protection type to set.
-     * @throws { BusinessError } 401 - Parameter error. Possible causes:
+     * @param { UInt32 } protectionType - Protection type to set.
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
-     * @throws { BusinessError } 1900002 - Failed to call ioctl.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @throws { BusinessException } 1900002 - Failed to call ioctl.
+     * @relation setProtectionType(protectionType: number): void
      */
     @!APILevel[
         21,
@@ -263,7 +266,7 @@ public class Ashmem <: RemoteDataLite {
     public func setProtectionType(protectionType: UInt32): Unit {
         var errCode = 0i32
         unsafe { FfiRpcAshmemImplSetProtectionType(getID(), protectionType, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -273,12 +276,12 @@ public class Ashmem <: RemoteDataLite {
      * @param { Int64 } size - Size of the data to write
      * @param { Int64 } offset - Start position of the data to write in the memory region associated
      *                   with this Ashmem object.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.Failed to obtain arrayBuffer information.
      * @throws { BusinessException } 1900003 - Failed to write data to the shared memory.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeDataToAshmem(buf: ArrayBuffer, size: number, offset: number): void
      */
     @!APILevel[
         21,
@@ -287,14 +290,14 @@ public class Ashmem <: RemoteDataLite {
     ]
     public func writeDataToAshmem(buf: Array<Byte>, size: Int64, offset: Int64): Unit {
         if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_TO_ASHMEM_ERROR, "Write to ashmem failed.")
+            throw BusinessException(ErrorCode.WriteToAshmemError.value, "Write to ashmem failed.")
         }
         unsafe {
             let cp = acquireArrayRawData(buf)
             var errCode = 0i32
             FfiRpcAshmemImplWriteDataToAshmem(getID(), cp.pointer, size, offset, inout errCode)
             releaseArrayRawData(cp)
-            checkRet(errCode)
+            checkAndThrow(errCode)
         }
     }
 
@@ -305,11 +308,11 @@ public class Ashmem <: RemoteDataLite {
      * @param { Int64 } offset - Start position of the data to read in the memory region associated
      *                   with this Ashmem object.
      * @returns { Array<Byte> } Data read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900004 - Failed to read data from the shared memory.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readDataFromAshmem(size: number, offset: number): ArrayBuffer
      */
     @!APILevel[
         21,
@@ -320,7 +323,7 @@ public class Ashmem <: RemoteDataLite {
         unsafe {
             var errCode: Int32 = 0
             let data = FfiRpcAshmemImplReadDataFromAshmem(getID(), size, offset, inout errCode)
-            checkRet(errCode)
+            checkAndThrow(errCode)
             let arr = Array<Byte>(size, repeat: 0)
             let arrPtr = acquireArrayRawData(arr)
             memcpy_s(arrPtr.pointer, UIntNative(size), data, UIntNative(size))

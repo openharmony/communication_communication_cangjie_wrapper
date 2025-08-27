@@ -16,7 +16,7 @@
 package ohos.rpc
 
 import ohos.ffi.*
-import ohos.base.BusinessException
+import ohos.business_exception.BusinessException
 import std.collection.ArrayList
 import ohos.labels.*
 
@@ -41,7 +41,7 @@ const BYTE_SIZE_64: UIntNative = 8
  * Bool, BoolArray, UInt8, UInt8Array, String, StringArray,
  * {@link Parcelable}, and ParcelableArray.
  *
- * @syscap SystemCapability.Communication.IPC.Core
+ * @relation class MessageSequence
  */
 @!APILevel[
     21,
@@ -61,7 +61,8 @@ public class MessageSequence <: RemoteDataLite {
      * Creates an empty {@link MessageSequence} object.
      *
      * @returns { MessageSequence } Return the object created.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @throws { BusinessException } 0 - Inner error.
+     * @relation static create(): MessageSequence
      */
     @!APILevel[
         21,
@@ -79,7 +80,7 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reclaim the {@link MessageSequence} object.
      *
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation reclaim(): void
      */
     @!APILevel[
         21,
@@ -94,13 +95,13 @@ public class MessageSequence <: RemoteDataLite {
      * Writes an interface token into the {@link MessageSequence} object.
      *
      * @param { String } token - Interface descriptor to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The String length exceeds 40960 bytes;
      *     4.The number of bytes copied to the buffer is different from the length of the obtained String.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeInterfaceToken(token: string): void
      */
     @!APILevel[
         21,
@@ -111,7 +112,7 @@ public class MessageSequence <: RemoteDataLite {
         try (ctoken = unsafe { LibC.mallocCString(token).asResource() }) {
             var errCode: Int32 = 0
             unsafe { FfiRpcMessageSequenceImplWriteInterfaceToken(getID(), ctoken.value, inout errCode) }
-            checkRet(errCode)
+            checkAndThrow(errCode)
         }
     }
 
@@ -120,7 +121,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { String } Return a String value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readInterfaceToken(): string
      */
     @!APILevel[
         21,
@@ -131,7 +132,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         let returnStr: CString = unsafe { FfiRpcMessageSequenceImplReadInterfaceToken(getID(), inout errCode) }
         try {
-            checkRet(errCode)
+            checkAndThrow(errCode)
             return returnStr.toString()
         } finally {
             unsafe { LibC.free(returnStr) }
@@ -142,7 +143,7 @@ public class MessageSequence <: RemoteDataLite {
      * Obtains the size of data (in bytes) contained in the {@link MessageSequence} object.
      *
      * @returns { UInt32 } Return the size of data contained in the {@link MessageSequence} object.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation getSize(): number
      */
     @!APILevel[
         21,
@@ -152,7 +153,7 @@ public class MessageSequence <: RemoteDataLite {
     public func getSize(): UInt32 {
         var errCode: Int32 = 0
         let returnNum: UInt32 = unsafe { FfiRpcMessageSequenceImplGetSize(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -160,7 +161,7 @@ public class MessageSequence <: RemoteDataLite {
      * Obtains the storage capacity (in bytes) of the {@link MessageSequence} object.
      *
      * @returns { UInt32 } Return the storage capacity of the {@link MessageSequence} object.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation getCapacity(): number
      */
     @!APILevel[
         21,
@@ -170,7 +171,7 @@ public class MessageSequence <: RemoteDataLite {
     public func getCapacity(): UInt32 {
         var errCode: Int32 = 0
         let returnNum: UInt32 = unsafe { FfiRpcMessageSequenceImplGetCapacity(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -180,10 +181,10 @@ public class MessageSequence <: RemoteDataLite {
      * than the storage capacity of the {@link MessageSequence}.
      *
      * @param { UInt32 } size - Indicates the data size of the {@link MessageSequence} object.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation setSize(size: number): void
      */
     @!APILevel[
         21,
@@ -193,7 +194,7 @@ public class MessageSequence <: RemoteDataLite {
     public func setSize(size: UInt32): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplSetSize(getID(), size, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -202,11 +203,11 @@ public class MessageSequence <: RemoteDataLite {
      * the size of data contained in the {@link MessageSequence}.
      *
      * @param { UInt32 } size - Indicates the storage capacity of the {@link MessageSequence} object.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900011 - Memory allocation failed.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation setCapacity(size: number): void
      */
     @!APILevel[
         21,
@@ -216,7 +217,7 @@ public class MessageSequence <: RemoteDataLite {
     public func setCapacity(size: UInt32): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplSetCapacity(getID(), size, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -225,7 +226,7 @@ public class MessageSequence <: RemoteDataLite {
      * the {@link MessageSequence}.
      *
      * @returns { UInt32 } Return the writable data space of the {@link MessageSequence} object.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation getWritableBytes(): number
      */
     @!APILevel[
         21,
@@ -235,7 +236,7 @@ public class MessageSequence <: RemoteDataLite {
     public func getWritableBytes(): UInt32 {
         var errCode: Int32 = 0
         let returnNum: UInt32 = unsafe { FfiRpcMessageSequenceImplGetWritableBytes(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -244,7 +245,7 @@ public class MessageSequence <: RemoteDataLite {
      * <p>Readable data space = Size of data contained in the {@link MessageSequence} – Size of data that has been read.
      *
      * @returns { UInt32 } Return the readable data space of the {@link MessageSequence} object.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation getReadableBytes(): number
      */
     @!APILevel[
         21,
@@ -254,7 +255,7 @@ public class MessageSequence <: RemoteDataLite {
     public func getReadableBytes(): UInt32 {
         var errCode: Int32 = 0
         let returnNum: UInt32 = unsafe { FfiRpcMessageSequenceImplGetReadableBytes(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -262,7 +263,7 @@ public class MessageSequence <: RemoteDataLite {
      * Obtains the current read position in the {@link MessageSequence} object.
      *
      * @returns { UInt32 } Return the current read position in the {@link MessageSequence} object.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation getReadPosition(): number
      */
     @!APILevel[
         21,
@@ -272,7 +273,7 @@ public class MessageSequence <: RemoteDataLite {
     public func getReadPosition(): UInt32 {
         var errCode: Int32 = 0
         let returnNum: UInt32 = unsafe { FfiRpcMessageSequenceImplGetReadPosition(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -280,7 +281,7 @@ public class MessageSequence <: RemoteDataLite {
      * Obtains the current write position in the {@link MessageSequence} object.
      *
      * @returns { UInt32 } Return the current write position in the {@link MessageSequence} object.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation getWritePosition(): number
      */
     @!APILevel[
         21,
@@ -290,7 +291,7 @@ public class MessageSequence <: RemoteDataLite {
     public func getWritePosition(): UInt32 {
         var errCode: Int32 = 0
         let returnNum: UInt32 = unsafe { FfiRpcMessageSequenceImplGetWritePosition(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -300,10 +301,10 @@ public class MessageSequence <: RemoteDataLite {
      * change it, change it to an accurate position. Otherwise, the read data may be incorrect.
      *
      * @param { UInt32 } pos - Indicates the target position to start data reading.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation rewindWrite(pos: number): void
      */
     @!APILevel[
         21,
@@ -313,7 +314,7 @@ public class MessageSequence <: RemoteDataLite {
     public func rewindWrite(pos: UInt32): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplRewindWrite(getID(), pos, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -322,10 +323,10 @@ public class MessageSequence <: RemoteDataLite {
      * change it, change it to an accurate position. Otherwise, the data to be read may be incorrect.
      *
      * @param { UInt32 } pos - Indicates the target position to start data writing.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation rewindRead(pos: number): void
      */
     @!APILevel[
         21,
@@ -335,7 +336,7 @@ public class MessageSequence <: RemoteDataLite {
     public func rewindRead(pos: UInt32): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplRewindRead(getID(), pos, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -344,7 +345,7 @@ public class MessageSequence <: RemoteDataLite {
      * {@link MessageSequence}.
      *
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeNoException(): void
      */
     @!APILevel[
         21,
@@ -354,7 +355,7 @@ public class MessageSequence <: RemoteDataLite {
     public func writeNoException(): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteNoException(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -364,7 +365,7 @@ public class MessageSequence <: RemoteDataLite {
      * if {@link writeNoException} was invoked in server side.
      *
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readException(): void
      */
     @!APILevel[
         21,
@@ -388,11 +389,11 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Int8 value into the {@link MessageSequence} object.
      *
      * @param { Int8 } val - Indicates the Int8 value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeByte(val: number): void
      */
     @!APILevel[
         21,
@@ -402,18 +403,18 @@ public class MessageSequence <: RemoteDataLite {
     public func writeByte(val: Int8): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteByte(getID(), val, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a Int16 value into the {@link MessageSequence} object.
      *
      * @param { Int16 } val - Indicates the Int16 value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeShort(val: number): void
      */
     @!APILevel[
         21,
@@ -423,18 +424,18 @@ public class MessageSequence <: RemoteDataLite {
     public func writeShort(val: Int16): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteShort(getID(), val, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes an Int32 into the {@link MessageSequence} object.
      *
      * @param { Int32 } val - Indicates the Int32 value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeInt(val: number): void
      */
     @!APILevel[
         21,
@@ -444,18 +445,18 @@ public class MessageSequence <: RemoteDataLite {
     public func writeInt(val: Int32): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteInt(getID(), val, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a Int64 value into the {@link MessageSequence} object.
      *
      * @param { Int64 } val - Indicates the Int64 value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeLong(val: number): void
      */
     @!APILevel[
         21,
@@ -465,18 +466,18 @@ public class MessageSequence <: RemoteDataLite {
     public func writeLong(val: Int64): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteLong(getID(), val, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a Float32 value into the {@link MessageSequence} object.
      *
      * @param { Float32 } val - Indicates the Float32 value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeFloat(val: number): void
      */
     @!APILevel[
         21,
@@ -486,18 +487,18 @@ public class MessageSequence <: RemoteDataLite {
     public func writeFloat(val: Float32): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteFloat(getID(), val, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a Float64 value into the {@link MessageSequence} object.
      *
      * @param { Float64 } val - Indicates the Float64 value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeDouble(val: number): void
      */
     @!APILevel[
         21,
@@ -507,18 +508,18 @@ public class MessageSequence <: RemoteDataLite {
     public func writeDouble(val: Float64): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteDouble(getID(), val, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a Bool value into the {@link MessageSequence} object.
      *
      * @param { Bool } val - Indicates the Bool value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeBoolean(val: boolean): void
      */
     @!APILevel[
         21,
@@ -533,18 +534,18 @@ public class MessageSequence <: RemoteDataLite {
         }
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteBoolean(getID(), value, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a UInt8 value into the {@link MessageSequence} object.
      *
      * @param { UInt8 } val - Indicates the UInt8 value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeChar(val: number): void
      */
     @!APILevel[
         21,
@@ -554,20 +555,20 @@ public class MessageSequence <: RemoteDataLite {
     public func writeChar(val: UInt8): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteChar(getID(), val, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a String value into the {@link MessageSequence} object.
      *
      * @param { String } val - Indicates the String value to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The String length exceeds 40960 bytes;
      *     4.The number of bytes copied to the buffer is different from the length of the obtained String.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeString(val: string): void
      */
     @!APILevel[
         21,
@@ -579,21 +580,21 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteString(getID(), value, inout errCode) }
         unsafe { LibC.free(value) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Writes a Int8 array into the {@link MessageSequence} object.
      *
      * @param { Array<Int8> } byteArray - Indicates the Int8 array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array.
      *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeByteArray(byteArray: number[]): void
      */
     @!APILevel[
         21,
@@ -605,7 +606,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteByteArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -614,14 +615,14 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Int16> } shortArray - Indicates the Int16 array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array;
      *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeShortArray(shortArray: number[]): void
      */
     @!APILevel[
         21,
@@ -633,7 +634,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteShortArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -642,14 +643,14 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Int32> } intArray - Indicates the Int32 array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array;
      *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeIntArray(intArray: number[]): void
      */
     @!APILevel[
         21,
@@ -661,7 +662,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteIntArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -670,14 +671,14 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Int64> } longArray - Indicates the Int64 array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array;
      *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeLongArray(longArray: number[]): void
      */
     @!APILevel[
         21,
@@ -689,7 +690,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteLongArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -698,14 +699,14 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Float32> } floatArray - Indicates the Float32 array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array;
      *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeFloatArray(floatArray: number[]): void
      */
     @!APILevel[
         21,
@@ -717,7 +718,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteFloatArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -726,15 +727,14 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Float64> } doubleArray - Indicates the Float64 array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array;
      *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-
+     * @relation writeDoubleArray(doubleArray: number[]): void
      */
     @!APILevel[
         21,
@@ -746,7 +746,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteDoubleArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -755,14 +755,13 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Bool> } booleanArray - Indicates the Bool array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-
+     * @relation writeBooleanArray(booleanArray: boolean[]): void
      */
     @!APILevel[
         21,
@@ -784,7 +783,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteBooleanArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -793,13 +792,13 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<UInt8> } charArray - Indicates the UInt8 array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeCharArray(charArray: number[]): void
      */
     @!APILevel[
         21,
@@ -811,7 +810,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteCharArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -820,14 +819,14 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<String> } StringArray - Indicates the String array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The String length exceeds 40960 bytes;
      *     5.The number of bytes copied to the buffer is different from the length of the obtained String.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeStringArray(stringArray: string[]): void
      */
     @!APILevel[
         21,
@@ -839,7 +838,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteStringArray(getID(), value, inout errCode) }
         value.free()
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -847,7 +846,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Int8 } Return a Int8 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readByte(): number
      */
     @!APILevel[
         21,
@@ -857,7 +856,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readByte(): Int8 {
         var errCode: Int32 = 0
         let returnNum: Int8 = unsafe { FfiRpcMessageSequenceImplReadByte(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -866,7 +865,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Int16 } Return a Int16 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readShort(): number
      */
     @!APILevel[
         21,
@@ -876,7 +875,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readShort(): Int16 {
         var errCode: Int32 = 0
         let returnNum: Int16 = unsafe { FfiRpcMessageSequenceImplReadShort(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -885,7 +884,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Int32 } Return an Int32 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readInt(): number
      */
     @!APILevel[
         21,
@@ -895,7 +894,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readInt(): Int32 {
         var errCode: Int32 = 0
         let returnNum: Int32 = unsafe { FfiRpcMessageSequenceImplReadInt(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -904,7 +903,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Int64 } Return a Int64 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readLong(): number
      */
     @!APILevel[
         21,
@@ -914,7 +913,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readLong(): Int64 {
         var errCode: Int32 = 0
         let returnNum: Int64 = unsafe { FfiRpcMessageSequenceImplReadLong(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -923,7 +922,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Float32 } Return a Float32 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readFloat(): number
      */
     @!APILevel[
         21,
@@ -933,7 +932,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readFloat(): Float32 {
         var errCode: Int32 = 0
         let returnNum: Float32 = unsafe { FfiRpcMessageSequenceImplReadFloat(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -942,7 +941,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Float64 } Return a Float64 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readDouble(): number
      */
     @!APILevel[
         21,
@@ -952,7 +951,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readDouble(): Float64 {
         var errCode: Int32 = 0
         let returnNum: Float64 = unsafe { FfiRpcMessageSequenceImplReadDouble(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -961,7 +960,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Bool } Return a Bool value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readBoolean(): boolean
      */
     @!APILevel[
         21,
@@ -971,7 +970,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readBoolean(): Bool {
         var errCode: Int32 = 0
         let returnNum: Int8 = unsafe { FfiRpcMessageSequenceImplReadBoolean(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return if (returnNum == 1) {
             true
         } else {
@@ -984,7 +983,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { UInt8 } Return a UInt8 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readChar(): number
      */
     @!APILevel[
         21,
@@ -994,7 +993,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readChar(): UInt8 {
         var errCode: Int32 = 0
         let returnNum: UInt8 = unsafe { FfiRpcMessageSequenceImplReadChar(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnNum
     }
 
@@ -1003,7 +1002,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { String } Return a String value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readString(): string
      */
     @!APILevel[
         21,
@@ -1014,7 +1013,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         let returnStr: CString = unsafe { FfiRpcMessageSequenceImplReadString(getID(), inout errCode) }
         try {
-            checkRet(errCode)
+            checkAndThrow(errCode)
             return returnStr.toString()
         } finally {
             unsafe { LibC.free(returnStr) }
@@ -1022,33 +1021,12 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int8 array into the {@link MessageSequence} object.
-     *
-     * @param { ArrayList<Int8> } dataIn - Indicates the Int8 array read from MessageSequence.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readByteArray(dataIn: ArrayList<Int8>): Unit {
-        let arr = readByteArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
      * Reads a Int8 array from the {@link MessageSequence} object.
      *
      * @returns { Array<Int8> } Return a Int8 array.
-     * @throws { BusinessException } 401 - check param failed
+     * @throws IllegalArgumentException - check param failed
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readByteArray(): number[]
      */
     @!APILevel[
         21,
@@ -1058,7 +1036,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readByteArray(): Array<Int8> {
         var errCode: Int32 = 0
         let returnArr: ByteArray = unsafe { FfiRpcMessageSequenceImplReadByteArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<Int8> = returnArr.toArray()
         returnArr.free()
         return arr
@@ -1067,30 +1045,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads a Int16 array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<Int16> } dataIn - Indicates the Int16 array read from MessageSequence.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readShortArray(dataIn: ArrayList<Int16>): Unit {
-        let arr = readShortArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads a Int16 array from the {@link MessageSequence} object.
-     *
      * @returns { Array<Int16> } Return a Int16 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readShortArray(): number[]
      */
     @!APILevel[
         21,
@@ -1100,7 +1057,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readShortArray(): Array<Int16> {
         var errCode: Int32 = 0
         let returnArr: ShortArray = unsafe { FfiRpcMessageSequenceImplReadShortArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<Int16> = returnArr.toArray()
         returnArr.free()
         return arr
@@ -1109,30 +1066,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads an Int32 array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<Int32> } dataIn - Indicates the Int32 array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readIntArray(dataIn: ArrayList<Int32>): Unit {
-        let arr = readIntArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads an Int32 array from the {@link MessageSequence} object.
-     *
      * @returns { Array<Int32> } Return an Int32 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readIntArray(): number[]
      */
     @!APILevel[
         21,
@@ -1142,7 +1078,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readIntArray(): Array<Int32> {
         var errCode: Int32 = 0
         let returnArr: CIntArray = unsafe { FfiRpcMessageSequenceImplReadIntArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<Int32> = returnArr.toArray()
         returnArr.free()
         return arr
@@ -1151,30 +1087,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads a Int64 array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<Int64> } dataIn - Indicates the Int64 array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readLongArray(dataIn: ArrayList<Int64>): Unit {
-        let arr = readLongArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads a Int64 array from the {@link MessageSequence} object.
-     *
      * @returns { Array<Int64> } Return a Int64 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readLongArray(): number[]
      */
     @!APILevel[
         21,
@@ -1184,7 +1099,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readLongArray(): Array<Int64> {
         var errCode: Int32 = 0
         let returnArr: LongArray = unsafe { FfiRpcMessageSequenceImplReadLongArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<Int64> = returnArr.toArray()
         returnArr.free()
         return arr
@@ -1193,30 +1108,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads a Float32 array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<Float32> } dataIn - Indicates the Float32 array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readFloatArray(dataIn: ArrayList<Float32>): Unit {
-        let arr = readFloatArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads a Float32 array from the {@link MessageSequence} object.
-     *
      * @returns { Array<Float32> } Return a Float32 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readFloatArray(): number[]
      */
     @!APILevel[
         21,
@@ -1226,7 +1120,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readFloatArray(): Array<Float32> {
         var errCode: Int32 = 0
         let returnArr: FloatArray = unsafe { FfiRpcMessageSequenceImplReadFloatArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<Float32> = returnArr.toArray()
         returnArr.free()
         return arr
@@ -1235,30 +1129,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads a Float64 array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<Float64> } dataIn - Indicates the Float64 array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readDoubleArray(dataIn: ArrayList<Float64>): Unit {
-        let arr = readDoubleArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads a Float64 array from the {@link MessageSequence} object.
-     *
      * @returns { Array<Float64> } Return a Float64 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readDoubleArray(): number[]
      */
     @!APILevel[
         21,
@@ -1268,7 +1141,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readDoubleArray(): Array<Float64> {
         var errCode: Int32 = 0
         let returnArr: DoubleArray = unsafe { FfiRpcMessageSequenceImplReadDoubleArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<Float64> = returnArr.toArray()
         returnArr.free()
         return arr
@@ -1277,30 +1150,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads a Bool array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<Bool> } dataIn - Indicates the Bool array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readBooleanArray(dataIn: ArrayList<Bool>): Unit {
-        let arr = readBooleanArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads a Bool array from the {@link MessageSequence} object.
-     *
      * @returns { Array<Bool> } Return a Bool array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readBooleanArray(): boolean[]
      */
     @!APILevel[
         21,
@@ -1310,7 +1162,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readBooleanArray(): Array<Bool> {
         var errCode: Int32 = 0
         let returnArr: ByteArray = unsafe { FfiRpcMessageSequenceImplReadBooleanArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<Bool> = returnArr.toBoolArray()
         returnArr.free()
         return arr
@@ -1319,30 +1171,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads a UInt8 array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<UInt8> } dataIn - Indicates the UInt8 array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readCharArray(dataIn: ArrayList<UInt8>): Unit {
-        let arr = readCharArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads a UInt8 array from the {@link MessageSequence} object.
-     *
      * @returns { Array<UInt8> } Return a UInt8 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readCharArray(): number[]
      */
     @!APILevel[
         21,
@@ -1352,7 +1183,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readCharArray(): Array<UInt8> {
         var errCode: Int32 = 0
         let returnArr: CharArray = unsafe { FfiRpcMessageSequenceImplReadCharArray(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let arr: Array<UInt8> = returnArr.toArray()
         returnArr.free()
         return arr
@@ -1361,30 +1192,9 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads a String array from the {@link MessageSequence} object.
      *
-     * @param { ArrayList<String> } dataIn - Indicates the String array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match.
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readStringArray(dataIn: ArrayList<String>): Unit {
-        let arr = readStringArray()
-        dataIn.add(all: arr)
-    }
-
-    /**
-     * Reads a String array from the {@link MessageSequence} object.
-     *
      * @returns { Array<String> } Return a String array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readStringArray(): string[]
      */
     @!APILevel[
         21,
@@ -1395,7 +1205,7 @@ public class MessageSequence <: RemoteDataLite {
         var errCode: Int32 = 0
         let returnArr: CStringArray = unsafe { FfiRpcMessageSequenceImplReadStringArray(getID(), inout errCode) }
         try {
-            checkRet(errCode)
+            checkAndThrow(errCode)
             return returnArr.toArray()
         } finally {
             returnArr.free()
@@ -1406,10 +1216,10 @@ public class MessageSequence <: RemoteDataLite {
      * Closes the specified file descriptor.
      *
      * @param { Int32 } fd - File descriptor to be closed.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static closeFileDescriptor(fd: number): void
      */
     @!APILevel[
         21,
@@ -1425,11 +1235,11 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Int32 } fd - File descriptor to be duplicated.
      * @returns { Int32 } Return a duplicated file descriptor.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900013 - Failed to call dup.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation static dupFileDescriptor(fd: number): number
      */
     @!APILevel[
         21,
@@ -1439,7 +1249,7 @@ public class MessageSequence <: RemoteDataLite {
     public static func dupFileDescriptor(fd: Int32): Int32 {
         let dupFd = unsafe { FfiRpcMessageSequenceImplDupFileDescriptor(fd) }
         if (dupFd < 0) {
-            throw BusinessException(ErrorCode.OS_DUP_ERROR, ERR_CODE_MAP[ErrorCode.OS_DUP_ERROR])
+            throw BusinessException(ErrorCode.OsDupError.value, ERR_CODE_MAP[ErrorCode.OsDupError.value])
         }
         return dupFd
     }
@@ -1449,7 +1259,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Bool } Return {@code true} if the {@link MessageSequence} object contains a file descriptor;
      *                      return {@code false} otherwise.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation containFileDescriptors(): boolean
      */
     @!APILevel[
         21,
@@ -1459,7 +1269,7 @@ public class MessageSequence <: RemoteDataLite {
     public func containFileDescriptors(): Bool {
         var errCode: Int32 = 0
         let returnBool: Bool = unsafe { FfiRpcMessageSequenceImplContainFileDescriptors(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnBool
     }
 
@@ -1467,11 +1277,11 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a file descriptor to this {@link MessageSequence} object.
      *
      * @param { Int32 } fd - File descriptor to wrote.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeFileDescriptor(fd: number): void
      */
     @!APILevel[
         21,
@@ -1481,7 +1291,7 @@ public class MessageSequence <: RemoteDataLite {
     public func writeFileDescriptor(fd: Int32): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteFileDescriptor(getID(), fd, inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
@@ -1489,7 +1299,7 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @returns { Int32 } Return a file descriptor obtained.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readFileDescriptor(): number
      */
     @!APILevel[
         21,
@@ -1499,7 +1309,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readFileDescriptor(): Int32 {
         var errCode: Int32 = 0
         let returnInt: Int32 = unsafe { FfiRpcMessageSequenceImplReadFileDescriptor(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnInt
     }
 
@@ -1507,11 +1317,11 @@ public class MessageSequence <: RemoteDataLite {
      * Writes an anonymous shared memory object to this {@link MessageSequence} object.
      *
      * @param { Ashmem } ashmem - Anonymous shared memory object to wrote.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter is not an instance of the Ashmem object.
      * @throws { BusinessException } 1900003 - Failed to write data to the shared memory.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeAshmem(ashmem: Ashmem): void
      */
     @!APILevel[
         21,
@@ -1521,16 +1331,16 @@ public class MessageSequence <: RemoteDataLite {
     public func writeAshmem(ashmem: Ashmem): Unit {
         var errCode: Int32 = 0
         unsafe { FfiRpcMessageSequenceImplWriteAshmem(getID(), ashmem.getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Reads the anonymous shared memory object from this {@link MessageSequence} object.
      *
      * @returns { Ashmem } Return the anonymous share object obtained.
-     * @throws { BusinessException } 401 - check param failed
+     * @throws IllegalArgumentException - check param failed
      * @throws { BusinessException } 1900004 - Failed to read data from the shared memory.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readAshmem(): Ashmem
      */
     @!APILevel[
         21,
@@ -1540,15 +1350,15 @@ public class MessageSequence <: RemoteDataLite {
     public func readAshmem(): Ashmem {
         var errCode: Int32 = 0
         let ashmem: Int64 = unsafe { FfiRpcMessageSequenceImplReadAshmem(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return Ashmem(ashmem)
     }
 
     /**
      * Obtains the maximum amount of raw data that can be sent in a time.
      *
-     * @returns { number } 128 MB.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @returns { UInt32 } 128 MB.
+     * @relation getRawDataCapacity(): number
      */
     @!APILevel[
         21,
@@ -1558,55 +1368,22 @@ public class MessageSequence <: RemoteDataLite {
     public func getRawDataCapacity(): UInt32 {
         var errCode: Int32 = 0
         let returnInt: UInt32 = unsafe { FfiRpcMessageSequenceImplGetRawDataCapacity(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         return returnInt
     }
 
     /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
-     *
-     * @param { Array<Int8> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
-     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func writeInt8Array(buf: Array<Int8>): Unit {
-        if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
-                "MessageSequence writeInt8Array: Write data to message sequence failed.")
-        }
-        let cp = unsafe { acquireArrayRawData(buf) }
-        var errCode = 0i32
-        unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), INT8_ARRAY.value, CPointer<Unit>(cp.pointer),
-                UIntNative(buf.size), inout errCode)
-        }
-        unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
-    }
-
-    /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
+     * Writes the data in an Array<UInt8> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt8> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
+     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
         21,
@@ -1615,64 +1392,31 @@ public class MessageSequence <: RemoteDataLite {
     ]
     public func writeUInt8Array(buf: Array<UInt8>): Unit {
         if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
+            throw BusinessException(ErrorCode.WriteDataToMessageSequenceError.value,
                 "MessageSequence writeUInt8Array:  Write data to message sequence failed.")
         }
         let cp = unsafe { acquireArrayRawData(buf) }
         var errCode = 0i32
         unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), UINT8_ARRAY.value, CPointer<Unit>(cp.pointer),
+            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), Uint8Array.value, CPointer<Unit>(cp.pointer),
                 UIntNative(buf.size), inout errCode)
         }
         unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
-     *
-     * @param { Array<Int16> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
-     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func writeInt16Array(buf: Array<Int16>): Unit {
-        if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
-                "MessageSequence writeInt16Array:  Write data to message sequence failed.")
-        }
-        let cp = unsafe { acquireArrayRawData(buf) }
-        var errCode = 0i32
-        unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), INT16_ARRAY.value, CPointer<Unit>(cp.pointer),
-                UIntNative(buf.size) * BYTE_SIZE_16, inout errCode)
-        }
-        unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
-    }
-
-    /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
+     * Writes the data in an Array<UInt16> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt16> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
+     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
         21,
@@ -1681,64 +1425,31 @@ public class MessageSequence <: RemoteDataLite {
     ]
     public func writeUInt16Array(buf: Array<UInt16>): Unit {
         if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
+            throw BusinessException(ErrorCode.WriteDataToMessageSequenceError.value,
                 "MessageSequence writeUInt16Array:  Write data to message sequence failed.")
         }
         let cp = unsafe { acquireArrayRawData(buf) }
         var errCode = 0i32
         unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), UINT16_ARRAY.value, CPointer<Unit>(cp.pointer),
+            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), Uint16Array.value, CPointer<Unit>(cp.pointer),
                 UIntNative(buf.size) * BYTE_SIZE_16, inout errCode)
         }
         unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
-     *
-     * @param { Array<Int32> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
-     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func writeInt32Array(buf: Array<Int32>): Unit {
-        if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
-                "MessageSequence writeInt32Array:  Write data to message sequence failed.")
-        }
-        let cp = unsafe { acquireArrayRawData(buf) }
-        var errCode = 0i32
-        unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), INT32_ARRAY.value, CPointer<Unit>(cp.pointer),
-                UIntNative(buf.size) * BYTE_SIZE_32, inout errCode)
-        }
-        unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
-    }
-
-    /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
+     * Writes the data in an Array<UInt32> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt32> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
+     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
         21,
@@ -1747,64 +1458,31 @@ public class MessageSequence <: RemoteDataLite {
     ]
     public func writeUInt32Array(buf: Array<UInt32>): Unit {
         if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
+            throw BusinessException(ErrorCode.WriteDataToMessageSequenceError.value,
                 "MessageSequence writeUInt32Array:  Write data to message sequence failed.")
         }
         let cp = unsafe { acquireArrayRawData(buf) }
         var errCode = 0i32
         unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), UINT32_ARRAY.value, CPointer<Unit>(cp.pointer),
+            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), Uint32Array.value, CPointer<Unit>(cp.pointer),
                 UIntNative(buf.size) * BYTE_SIZE_32, inout errCode)
         }
         unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
-     *
-     * @param { Array<Int64> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
-     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func writeInt64Array(buf: Array<Int64>): Unit {
-        if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
-                "MessageSequence writeInt64Array:  Write data to message sequence failed.")
-        }
-        let cp = unsafe { acquireArrayRawData(buf) }
-        var errCode = 0i32
-        unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), BIGINT64_ARRAY.value, CPointer<Unit>(cp.pointer),
-                UIntNative(buf.size) * BYTE_SIZE_64, inout errCode)
-        }
-        unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
-    }
-
-    /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
+     * Writes the data in an Array<UInt64> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt64> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
+     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
         21,
@@ -1813,120 +1491,29 @@ public class MessageSequence <: RemoteDataLite {
     ]
     public func writeUInt64Array(buf: Array<UInt64>): Unit {
         if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
+            throw BusinessException(ErrorCode.WriteDataToMessageSequenceError.value,
                 "MessageSequence writeUInt64Array:  Write data to message sequence failed.")
         }
         let cp = unsafe { acquireArrayRawData(buf) }
         var errCode = 0i32
         unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), BIGUINT64_ARRAY.value, CPointer<Unit>(cp.pointer),
+            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), BigUint64Array.value, CPointer<Unit>(cp.pointer),
                 UIntNative(buf.size) * BYTE_SIZE_64, inout errCode)
         }
         unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
-    }
-
-    /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
-     *
-     * @param { Array<Float32> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
-     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func writeFloat32Array(buf: Array<Float32>): Unit {
-        if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
-                "MessageSequence writeFloat32Array:  Write data to message sequence failed.")
-        }
-        let cp = unsafe { acquireArrayRawData(buf) }
-        var errCode = 0i32
-        unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), FLOAT32_ARRAY.value, CPointer<Unit>(cp.pointer),
-                UIntNative(buf.size) * BYTE_SIZE_32, inout errCode)
-        }
-        unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
-    }
-
-    /**
-     * Writes the data in an ArrayBuffer object into this {@Link MessageSequence} object.
-     *
-     * @param { Array<Float64> } buf - Data to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain arrayBuffer information.
-     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func writeFloat64Array(buf: Array<Float64>): Unit {
-        if (buf.size == 0) {
-            throw BusinessException(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR,
-                "MessageSequence writeFloat64Array:  Write data to message sequence failed.")
-        }
-        let cp = unsafe { acquireArrayRawData(buf) }
-        var errCode = 0i32
-        unsafe {
-            FfiRpcMessageSequenceImplWriteArrayBuffer(getID(), FLOAT64_ARRAY.value, CPointer<Unit>(cp.pointer),
-                UIntNative(buf.size) * BYTE_SIZE_64, inout errCode)
-        }
-        unsafe { releaseArrayRawData(cp) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
     }
 
     /**
      * Reads raw data from this {@link MessageSequence} object.
      *
-     * @returns { Array<Int8> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @returns { Array<UInt8> } Returns the Array<UInt8> obtained.
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readInt8Array(): Array<Int8> {
-        var errCode: Int32 = 0
-        let buf: ByteArray = unsafe { FfiRpcMessageSequenceImplReadInt8ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
-        let result = buf.toArray()
-        buf.free()
-        return result
-    }
-
-    /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
-     * @returns { Array<UInt8> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
         21,
@@ -1936,7 +1523,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readUInt8Array(): Array<UInt8> {
         var errCode: Int32 = 0
         let buf: CharArray = unsafe { FfiRpcMessageSequenceImplReadUInt8ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let result = buf.toArray()
         buf.free()
         return result
@@ -1945,38 +1532,13 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads raw data from this {@link MessageSequence} object.
      *
-     * @returns { Array<Int16> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @returns { Array<UInt16> } Returns the Array<UInt16> obtained.
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readInt16Array(): Array<Int16> {
-        var errCode: Int32 = 0
-        let buf: ShortArray = unsafe { FfiRpcMessageSequenceImplReadInt16ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
-        let result = buf.toArray()
-        buf.free()
-        return result
-    }
-
-    /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
-     * @returns { Array<UInt16> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
         21,
@@ -1986,7 +1548,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readUInt16Array(): Array<UInt16> {
         var errCode: Int32 = 0
         let buf: UInt16Array = unsafe { FfiRpcMessageSequenceImplReadUInt16ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let result = buf.toArray()
         buf.free()
         return result
@@ -1995,38 +1557,13 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads raw data from this {@link MessageSequence} object.
      *
-     * @returns { Array<Int32> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @returns { Array<UInt32> } Returns the Array<UInt32> obtained.
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readInt32Array(): Array<Int32> {
-        var errCode: Int32 = 0
-        let buf: CIntArray = unsafe { FfiRpcMessageSequenceImplReadInt32ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
-        let result = buf.toArray()
-        buf.free()
-        return result
-    }
-
-    /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
-     * @returns { Array<UInt32> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
         21,
@@ -2036,7 +1573,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readUInt32Array(): Array<UInt32> {
         var errCode: Int32 = 0
         let buf: UInt32Array = unsafe { FfiRpcMessageSequenceImplReadUInt32ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let result = buf.toArray()
         buf.free()
         return result
@@ -2045,38 +1582,13 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Reads raw data from this {@link MessageSequence} object.
      *
-     * @returns { Array<Int64> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @returns { Array<UInt64> } Returns the Array<UInt64> obtained.
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
      *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readInt64Array(): Array<Int64> {
-        var errCode: Int32 = 0
-        let buf: LongArray = unsafe { FfiRpcMessageSequenceImplReadInt64ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
-        let result = buf.toArray()
-        buf.free()
-        return result
-    }
-
-    /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
-     * @returns { Array<UInt64> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
         21,
@@ -2086,57 +1598,7 @@ public class MessageSequence <: RemoteDataLite {
     public func readUInt64Array(): Array<UInt64> {
         var errCode: Int32 = 0
         let buf: UInt64Array = unsafe { FfiRpcMessageSequenceImplReadUInt64ArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
-        let result = buf.toArray()
-        buf.free()
-        return result
-    }
-
-    /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
-     * @returns { Array<Float32> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readFloat32Array(): Array<Float32> {
-        var errCode: Int32 = 0
-        let buf: FloatArray = unsafe { FfiRpcMessageSequenceImplReadFloatArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
-        let result = buf.toArray()
-        buf.free()
-        return result
-    }
-
-    /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
-     * @returns { Array<Float64> } Returns the Arraybuffer obtained.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
-     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
-     */
-    @!APILevel[
-        21,
-        stagemodelonly: true,
-        syscap: "SystemCapability.Communication.IPC.Core"
-    ]
-    public func readFloat64Array(): Array<Float64> {
-        var errCode: Int32 = 0
-        let buf: DoubleArray = unsafe { FfiRpcMessageSequenceImplReadDoubleArrayBuffer(getID(), inout errCode) }
-        checkRet(errCode)
+        checkAndThrow(errCode)
         let result = buf.toArray()
         buf.free()
         return result
@@ -2146,25 +1608,25 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a {@link Parcelable} object into the {@link MessageSequence} object.
      *
      * @param { Parcelable } val - Indicates the {@link Parcelable} object to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeParcelable(val: Parcelable): void
      */
     @!APILevel[
         21,
         stagemodelonly: true,
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
-    public func writeParcelable(val: Parcelable): Unit {
+    public func writeParcelable<T>(val: T): Unit where T <: Parcelable {
         let pos = getWritePosition()
         writeInt(1)
         try {
             val.marshalling(this)
         } catch (e: BusinessException) {
             rewindWrite(pos)
-            checkRet(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR)
+            checkAndThrow(ErrorCode.WriteDataToMessageSequenceError.value)
         }
     }
 
@@ -2173,48 +1635,48 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Parcelable } dataIn - Indicates the {@link Parcelable} object that needs to perform
      *                       the {@code unmarshalling} operation using the {@link MessageSequence}.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      * @throws { BusinessException } 1900012 - Failed to call the JS callback function.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readParcelable(dataIn: Parcelable): void
      */
     @!APILevel[
         21,
         stagemodelonly: true,
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
-    public func readParcelable(dataIn: Parcelable): Unit {
+    public func readParcelable<T>(dataIn: T): Unit where T <: Parcelable {
         let len = readInt()
         if (len > 0) {
             dataIn.unmarshalling(this)
             return
         }
-        checkRet(ErrorCode.CALL_JS_METHOD_ERROR)
+        checkAndThrow(ErrorCode.ReadDataFromMessageSequenceError.value)
     }
 
     /**
      * Writes a {@link Parcelable} object array into the {@link MessageSequence} object.
      *
      * @param { Array<Parcelable> } parcelableArray - Indicates the {@link Parcelable} object array to write.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
      *     4.The element does not exist in the array.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeParcelableArray(parcelableArray: Parcelable[]): void
      */
     @!APILevel[
         21,
         stagemodelonly: true,
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
-    public func writeParcelableArray(parcelableArray: Array<Parcelable>): Unit {
+    public func writeParcelableArray<T>(parcelableArray: Array<T>): Unit where T <: Parcelable {
         let pos = getWritePosition()
         let result = unsafe { FfiRpcMessageSequenceImplWriteUint32(getID(), UInt32(parcelableArray.size)) }
         if (!result) {
-            checkRet(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR)
+            checkAndThrow(ErrorCode.WriteDataToMessageSequenceError.value)
         }
         for (i in 0..parcelableArray.size) {
             try {
@@ -2222,7 +1684,7 @@ public class MessageSequence <: RemoteDataLite {
                 parcelableArray[i].marshalling(this)
             } catch (e: BusinessException) {
                 rewindWrite(pos)
-                checkRet(ErrorCode.WRITE_DATA_TO_MESSAGE_SEQUENCE_ERROR)
+                checkAndThrow(ErrorCode.WriteDataToMessageSequenceError.value)
             }
         }
     }
@@ -2231,7 +1693,7 @@ public class MessageSequence <: RemoteDataLite {
      * Reads the specified {@link Parcelable} array from this {@link MessageSequence} object.
      *
      * @param { Array<Parcelable> } parcelableArray - Parcelable array to read.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The parameter is an empty array;
      *     2.The number of parameters is incorrect;
      *     3.The parameter type does not match;
@@ -2239,17 +1701,17 @@ public class MessageSequence <: RemoteDataLite {
      *     5.The element does not exist in the array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      * @throws { BusinessException } 1900012 - Failed to call the JS callback function.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readParcelableArray(parcelableArray: Parcelable[]): void
      */
     @!APILevel[
         21,
         stagemodelonly: true,
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
-    public func readParcelableArray(parcelableArray: Array<Parcelable>): Unit {
+    public func readParcelableArray<T>(parcelableArray: Array<T>): Unit where T <: Parcelable {
         let arrayLength = readInt()
         if (Int64(arrayLength) != parcelableArray.size) {
-            throw BusinessException(ErrorCode.CHECK_PARAM_ERROR, "Parameter error.")
+            throw BusinessException(ErrorCode.CheckParamError.value, "Parameter error.")
         }
         for (i in 0..parcelableArray.size) {
             let len = readInt()
@@ -2264,15 +1726,15 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Array<Byte> } rawData - Raw data to wrote.
      * @param { Int64 } size - Size of the raw data, in bytes.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match;
-     *     3.Failed to obtain arrayBuffer information;
+     *     3.Failed to obtain array information;
      *     4.The transferred size cannot be obtained;
      *     5.The transferred size is less than or equal to 0;
-     *     6.The transferred size is greater than the byte length of ArrayBuffer.
+     *     6.The transferred size is greater than the byte length of rawData.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation writeRawDataBuffer(rawData: ArrayBuffer, size: number): void
      */
     @!APILevel[
         21,
@@ -2281,14 +1743,14 @@ public class MessageSequence <: RemoteDataLite {
     ]
     public func writeRawDataBuffer(rawData: Array<Byte>, size: Int64): Unit {
         if (size <= 0 || size > rawData.size) {
-            throw BusinessException(ErrorCode.CHECK_PARAM_ERROR, "Parameter error.")
+            throw BusinessException(ErrorCode.CheckParamError.value, "Parameter error.")
         }
         unsafe {
             let cp = acquireArrayRawData(rawData)
             var errCode = 0i32
             FfiRpcMessageSequenceImplWriteRawDataBuffer(getID(), cp.pointer, size, inout errCode)
             releaseArrayRawData(cp)
-            checkRet(errCode)
+            checkAndThrow(errCode)
         }
     }
 
@@ -2297,11 +1759,11 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Int64 } size - Size of the raw data to read.
      * @returns { Array<Byte> } Return the raw data obtained, in bytes.
-     * @throws { BusinessException } 401 - Parameter error. Possible causes:
+     * @throws IllegalArgumentException - Parameter error. Possible causes:
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
-     * @syscap SystemCapability.Communication.IPC.Core
+     * @relation readRawDataBuffer(size: number): ArrayBuffer
      */
     @!APILevel[
         21,
@@ -2310,12 +1772,12 @@ public class MessageSequence <: RemoteDataLite {
     ]
     public func readRawDataBuffer(size: Int64): Array<Byte> {
         if (size <= 0) {
-            throw BusinessException(ErrorCode.CHECK_PARAM_ERROR, "Parameter error.")
+            throw BusinessException(ErrorCode.CheckParamError.value, "Parameter error.")
         }
         unsafe {
             var errCode: Int32 = 0
             let data = FfiRpcMessageSequenceImplReadRawDataBuffer(getID(), size, inout errCode)
-            checkRet(errCode)
+            checkAndThrow(errCode)
             let arr = Array<Byte>(size, {i => data.read(i)})
             LibC.free(data)
             return arr

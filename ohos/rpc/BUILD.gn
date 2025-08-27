@@ -14,16 +14,13 @@
 import("//build/ohos.gni")
 import("//build/cangjie/cjc.gni")
 
-ohos_cj_library("ohos.rpc") {
+ohos_cangjie_shared_library("ohos.rpc") {
   sources = [
     "ashmem.cj",
     "cj_rpc_ffi.cj",
     "cj_rpc_interface.cj",
     "cj_rpc_utils.cj",
-    "error_code.cj",
-    "ipcskeleton.cj",
     "iremote_object.cj",
-    "message_option.cj",
     "message_sequence.cj",
     "remote_object.cj",
     "remote_proxy.cj",
@@ -33,7 +30,7 @@ ohos_cj_library("ohos.rpc") {
   cj_external_deps = [
     "cangjie_ark_interop:ohos.ffi",
     "cangjie_ark_interop:ohos.labels",
-    "arkui_cangjie_wrapper:ohos.base",
+    "cangjie_ark_interop:ohos.business_exception",
     "hiviewdfx_cangjie_wrapper:ohos.hilog",
   ]
 
@@ -41,5 +38,4 @@ ohos_cj_library("ohos.rpc") {
 
   subsystem_name = "communication"
   part_name = "communication_cangjie_wrapper"
-  lib_name = "rpc"
 }

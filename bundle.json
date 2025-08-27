@@ -22,10 +22,12 @@
         "SystemCapability.Communication.IPC.Core"
       ],
       "rom": "300KB",
-      "ram": "900KB",
+      "ram": "228KB",
       "deps": {
         "components": [
-          "cangjie_ark_interop"
+          "cangjie_ark_interop",
+          "arkui_cangjie_wrapper",
+          "hiviewdfx_cangjie_wrapper"
         ]
       },
       "build": {

@@ -6,13 +6,11 @@ The communication_cangjie_wrapper is a Cangjie API encapsulated on OpenHarmony b
 
 - Remote procedure call (RPC): communications between processes on a device or across devices.
 
+## System Architecture
 
-## Architecture
+**Figure 1** Diagram of the Cangjie architecture of distributed soft bus
 
-**Figure 1** DSoftBus architecture
-
-
-![](figures/dsoftbus.png)
+![](figures/commounication_cangjie_wrapper_architecture_en.png)
 
 ## Directory Structure
 
@@ -27,18 +25,26 @@ foundation/communication/communication_cangjie_wrapper
 
 ## Constraints
 
-The devices must be in the same LAN.
+- The devices must be in the same LAN.
+- When communicating across processes on a single device, the maximum amount of data transferred is about 1 MB.
+- It is not supported to pass a cross-device proxy object back to the device where the stub object is located.
+- The currently open distributed soft bus Cangjie interface only supports standard devices.
 
 ## Usage
 
-### RPC
+The current distributed soft bus Cangjie interface provides the following functions:
 
-In an RPC, the client process obtains the proxy of the process that provides the service (server). Through the proxy, the two processes communicate with each other.
+- The server sends the request, and the client sends the request.
 
-1.  Implement the server capabilities.
-2.  The client obtains a proxy of the server. This proxy provides the same capabilities as the server. To call a method of the server, the client only needs to call the same method of the proxy.
-3.  The server processes the received request and returns the result to the proxy via the driver.
-4.  The proxy returns the result to the client.
+Compared with ArkTS, the following functions are not supported at the moment:
+
+- The server side processes the request.
+
+See Camera APIs[ohos.rpc (RPC Communication)](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/IPCKit/cj-apis-rpc.md).For guidance, please refer to[RPC Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/ipc/cj-ipc-rpc-overview.md).
+
+## Code Contribution
+
+Developers are welcome to contribute code, documentation, etc. For specific contribution processes and methods, please refer to [Code Contribution](https://gitcode.com/openharmony/docs/blob/master/en/contribute/code-contribution.md).
 
 ## Repositories Involved
 

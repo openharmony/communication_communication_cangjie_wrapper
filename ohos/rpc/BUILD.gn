@@ -18,7 +18,7 @@ ohos_cangjie_shared_library("ohos.rpc") {
   sources = [
     "ashmem.cj",
     "cj_rpc_ffi.cj",
-    "cj_rpc_interface.cj",
+    "parcelable.cj",
     "cj_rpc_utils.cj",
     "iremote_object.cj",
     "message_sequence.cj",

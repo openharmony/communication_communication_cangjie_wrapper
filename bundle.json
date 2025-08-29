@@ -1,7 +1,7 @@
 {
     "name": "@ohos/communication_cangjie_wrapper",
     "version": "6.0",
-    "description": "ipc",
+    "description": "分布式软总线仓颉接口是在OpenHarmony上基于分布式软总线子系统能力之上封装的仓颉API。",
     "publishAs": "code-segment",
     "scripts": {},
     "author": {},
@@ -26,8 +26,8 @@
       "deps": {
         "components": [
           "cangjie_ark_interop",
-          "arkui_cangjie_wrapper",
-          "hiviewdfx_cangjie_wrapper"
+          "hiviewdfx_cangjie_wrapper",
+          "ipc"
         ]
       },
       "build": {

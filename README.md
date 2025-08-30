@@ -6,11 +6,16 @@ The Distributed Softbus Cangjie API is a Cangjie API encapsulated on OpenHarmony
 
 ## System Architecture
 
-**Figure 1** OpenHarmony distributed soft bus Cangjie architecture diagram
+**Figure 1** Diagram of the Cangjie architecture of distributed soft bus
 
-![](figures/commounication_cangjie_wrapper_architecture_en.png)
+![Diagram of the Cangjie architecture of distributed soft bus](figures/commounication_cangjie_wrapper_architecture_en.png)
 
-The distributed soft bus Cangjie interface provides interfaces related to message sequences and anonymous shared memory objects.
+As shown in the architecture diagram:
+
+- MessageSequence: Provides the data format used for communication.
+- Ashmem: Provides methods related to anonymous shared memory objects.
+- Cangjie distributed soft bus FFI interface definition: Responsible for defining the C-interoperable Cangjie interface, which is used to realize Cangjie's distributed soft bus capabilities.
+- Remote Procedure Call: Responsible for providing basic RPC functions, and encapsulating the C interface to provide Cangjie for interoperability.
 
 ## Directory Structure
 

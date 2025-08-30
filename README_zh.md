@@ -6,11 +6,16 @@
 
 ## 系统架构
 
-**图 1**  OpenHarmony分布式软总线仓颉架构图
+**图 1** 分布式软总线仓颉架构图
 
-![](figures/communication_cangjie_wrapper_architecture.png)
+![分布式软总线仓颉架构图](figures/communication_cangjie_wrapper_architecture.png)
 
-分布式软总线仓颉接口提供了消息序列和匿名共享内存对象相关的接口。
+如架构图所示：
+
+- 消息序列：提供用来通信的数据格式。
+- 匿名共享内存对象：提供与匿名共享内存对象相关的方法。
+- 仓颉分布式软总线FFI接口定义：负责定义C互操作仓颉接口，用于实现仓颉分布式软总线能力。
+- RPC通信：负责提供RPC基础功能，封装C接口提供给仓颉进行互操作。
 
 ## 目录
 

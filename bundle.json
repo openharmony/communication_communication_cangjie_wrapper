@@ -1,7 +1,7 @@
 {
     "name": "@ohos/communication_cangjie_wrapper",
     "version": "6.0",
-    "description": "分布式软总线仓颉接口是在OpenHarmony上基于分布式软总线子系统能力之上封装的仓颉API。",
+    "description": "The Distributed Softbus Cangjie API is a Cangjie API encapsulated on OpenHarmony based on the capabilities of the Distributed Softbus Subsystem.",
     "publishAs": "code-segment",
     "scripts": {},
     "author": {},

@@ -26,8 +26,9 @@ foundation/communication/communication_cangjie_wrapper
 ├── figures             # 存放README中的架构图
 ├── kit                 # 仓颉IPC kit化接口
 │   └── IPCKit
-└── ohos                # 仓颉IPC接口实现
-    └── rpc
+├── ohos                # 仓颉IPC接口实现
+│   └── rpc
+└── test                # 仓颉测试用例
 ```
 
 ## 使用说明

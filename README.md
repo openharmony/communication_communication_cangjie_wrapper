@@ -26,8 +26,9 @@ foundation/communication/communication_cangjie_wrapper
 ├── figures             # architecture pictures
 ├── kit                 # Cangjie IPC Kit interface
 │   └── IPCKit
-└── ohos                # Cangjie IPC code
-    └── rpc
+├── ohos                # Cangjie IPC code
+│   └── rpc
+└── test                # Cangjie test cases
 ```
 
 ## Usage

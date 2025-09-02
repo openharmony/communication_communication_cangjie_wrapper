@@ -52,8 +52,4 @@ RPC相关API请参见[ohos.rpc（RPC通信）](https://gitcode.com/openharmony-s
 
 ## 相关仓
 
-[cangjie\_ark\_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop)
-
-[hiviewdfx\_cangjie\_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper)
-
 [communication\_ipc](https://gitee.com/openharmony/communication_ipc/blob/master/README.md)

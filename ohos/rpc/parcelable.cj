@@ -25,8 +25,7 @@ import ohos.labels.*
  * @relation interface Parcelable
  */
 @!APILevel[
-    21,
-    stagemodelonly: true,
+    22,
     syscap: "SystemCapability.Communication.IPC.Core"
 ]
 public interface Parcelable {
@@ -36,8 +35,7 @@ public interface Parcelable {
      * @relation marshalling(dataOut: MessageSequence): boolean
      */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     func marshalling(dataOut: MessageSequence): Bool
@@ -48,8 +46,7 @@ public interface Parcelable {
      * @relation unmarshalling(dataIn: MessageSequence): boolean
      */
     @!APILevel[
-        21,
-        stagemodelonly: true,
+        22,
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     func unmarshalling(dataIn: MessageSequence): Bool

@@ -14,8 +14,8 @@
 
 - 消息序列：提供用来通信的数据格式。
 - 匿名共享内存对象：提供与匿名共享内存对象相关的方法。
-- 仓颉分布式软总线FFI接口定义：负责定义C互操作仓颉接口，用于实现仓颉分布式软总线能力。
-- RPC通信：负责提供RPC基础功能，封装C接口提供给仓颉进行互操作。
+- 仓颉分布式软总线FFI接口定义：负责定义C语言互操作仓颉接口，用于实现仓颉分布式软总线能力。
+- RPC通信：负责提供RPC基础功能，封装C语言接口提供给仓颉进行互操作。
 
 ## 目录
 
@@ -23,12 +23,14 @@
 
 ```
 foundation/communication/communication_cangjie_wrapper
-├── figures             # 存放README中的架构图
-├── kit                 # 仓颉IPC kit化接口
+├── figures                             # 存放README中的架构图
+├── kit                                 # 仓颉IPC kit化接口
 │   └── IPCKit
-├── ohos                # 仓颉IPC接口实现
+├── ohos                                # 仓颉IPC接口实现
 │   └── rpc
-└── test                # 仓颉测试用例
+│       └── message_sequence.cj         # 消息序列接口
+│       └── ashmem.cj                   # 匿名共享内存对象接口
+└── test                                # 仓颉测试用例
 ```
 
 ## 使用说明
@@ -52,4 +54,8 @@ RPC相关API请参见[ohos.rpc（RPC通信）](https://gitcode.com/openharmony-s
 
 ## 相关仓
 
-[communication\_ipc](https://gitee.com/openharmony/communication_ipc/blob/master/README.md)
+[ark_compiler_cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop)
+
+[communication_ipc](https://gitcode.com/openharmony/communication_ipc)
+
+[hiviewdfx_hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper)

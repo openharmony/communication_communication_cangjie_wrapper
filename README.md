@@ -14,8 +14,8 @@ As shown in the architecture diagram:
 
 - MessageSequence: Provides the data format used for communication.
 - Ashmem: Provides methods related to anonymous shared memory objects.
-- Cangjie distributed soft bus FFI interface definition: Responsible for defining the C-interoperable Cangjie interface, which is used to realize Cangjie's distributed soft bus capabilities.
-- Remote Procedure Call: Responsible for providing basic RPC functions, and encapsulating the C interface to provide Cangjie for interoperability.
+- Cangjie distributed soft bus FFI interface definition: Responsible for defining the C Language interoperable Cangjie interface, which is used to realize Cangjie's distributed soft bus capabilities.
+- Remote Procedure Call: Responsible for providing basic RPC functions, and encapsulating the C Language interface to provide Cangjie for interoperability.
 
 ## Directory Structure
 
@@ -23,12 +23,14 @@ The DSoftBus directory structure is as follows:
 
 ```
 foundation/communication/communication_cangjie_wrapper
-├── figures             # architecture pictures
-├── kit                 # Cangjie IPC Kit interface
+├── figures                             # architecture pictures
+├── kit                                 # Cangjie IPC Kit interface
 │   └── IPCKit
-├── ohos                # Cangjie IPC code
+├── ohos                                # Cangjie IPC code
 │   └── rpc
-└── test                # Cangjie test cases
+│       └── message_sequence.cj         # The interface for MessageSequence
+│       └── ashmem.cj                   # The interface for Ashmem
+└── test                                # Cangjie test cases
 ```
 
 ## Usage
@@ -52,4 +54,8 @@ Developers are welcome to contribute code, documentation, etc. For specific cont
 
 ## Repositories Involved
 
-[communication\_ipc](https://gitee.com/openharmony/communication_ipc)
+[ark_compiler_cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop)
+
+[communication_ipc](https://gitcode.com/openharmony/communication_ipc)
+
+[hiviewdfx_hiviewdfx_cangjie_wrapper](https://gitcode.com/openharmony-sig/hiviewdfx_hiviewdfx_cangjie_wrapper)

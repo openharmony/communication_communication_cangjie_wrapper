@@ -32,7 +32,7 @@
     "build": {
       "sub_component": [
         "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc",
-        "//foundation/communication/communication_cangjie_wrapper/kit/IPCKit:kit.IPCKit"
+        "//foundation/communication/communication_cangjie_wrapper/kit/IPCKit:IPCKit"
       ],
       "inner_kits": [
         {

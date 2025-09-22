@@ -30,7 +30,7 @@ import PerformanceAnalysisKit.Hilog
 @Test
 class Test_rpc {
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readShortArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Int16> = [11, 12, 13]
@@ -41,7 +41,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readIntArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Int32> = [100, 111, 112]
@@ -52,7 +52,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readLongArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Int64> = [100, 111, 112]
@@ -63,7 +63,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readFloatArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Float32> = [1.2, 1.3, 1.4]
@@ -74,7 +74,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readDoubleArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Float64> = [1.2, 1.3, 1.4]
@@ -85,7 +85,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readBooleanArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Bool> = [false, false, true]
@@ -96,7 +96,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readCharArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<UInt8> = [97, 98, 88]
@@ -107,7 +107,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readStringArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<String> = ["仓颉", "cangjie", "ce试"]
@@ -118,7 +118,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readAshmem(): Unit {
         let data: MessageSequence = MessageSequence.create()
         let ashmem: Ashmem = Ashmem.create("ashmem", 1024i32)
@@ -135,7 +135,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeInterfaceToken_Exception(): Unit {
         let data = MessageSequence.create()
         let token = "a" * 40960
@@ -151,7 +151,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_InterfaceToken(): Unit {
         let data = MessageSequence.create()
         let str = "aaa"
@@ -162,7 +162,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_GetSize(): Unit {
         let data = MessageSequence.create()
         var result = data.getSize()
@@ -176,7 +176,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_GetCapacity(): Unit {
         let data = MessageSequence.create()
         var result = data.getCapacity()
@@ -189,7 +189,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_getWritableBytes(): Unit {
         let data = MessageSequence.create()
         var result = data.getWritableBytes()
@@ -198,7 +198,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_getReadableBytes(): Unit {
         let data = MessageSequence.create()
         var result = data.getReadableBytes()
@@ -207,7 +207,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_getReadPosition(): Unit {
         let data = MessageSequence.create()
         var result = data.getReadPosition()
@@ -216,7 +216,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_getWritePosition(): Unit {
         let data = MessageSequence.create()
         data.writeInt(10)
@@ -226,7 +226,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_rewindWrite(): Unit {
         let data = MessageSequence.create()
         data.writeInt(4)
@@ -238,7 +238,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_rewindRead(): Unit {
         let data = MessageSequence.create()
         data.writeInt(12)
@@ -252,7 +252,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeNoException(): Unit {
         let data = MessageSequence.create()
         data.writeNoException()
@@ -261,7 +261,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeByte(): Unit {
         let data = MessageSequence.create()
         data.writeByte(2)
@@ -272,7 +272,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeShort(): Unit {
         let data = MessageSequence.create()
         data.writeShort(8)
@@ -282,7 +282,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeInt(): Unit {
         let data = MessageSequence.create()
         data.writeInt(12)
@@ -296,7 +296,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeLong(): Unit {
         let data = MessageSequence.create()
         data.writeLong(10000)
@@ -306,7 +306,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeFloat(): Unit {
         let data = MessageSequence.create()
         data.writeFloat(1.2)
@@ -316,7 +316,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeDouble(): Unit {
         let data = MessageSequence.create()
         data.writeDouble(10.2)
@@ -326,7 +326,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeBoolean(): Unit {
         let data = MessageSequence.create()
         data.writeBoolean(false)
@@ -336,7 +336,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeChar(): Unit {
         let data = MessageSequence.create()
         data.writeChar(97)
@@ -346,7 +346,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeString(): Unit {
         let data = MessageSequence.create()
         data.writeString("abc")
@@ -356,7 +356,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_writeByteArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Int8> = [1, 2, 3, 4, 5]
@@ -367,7 +367,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readByte(): Unit {
         let data = MessageSequence.create()
         data.writeByte(2)
@@ -378,7 +378,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readShort(): Unit {
         let data = MessageSequence.create()
         data.writeShort(8)
@@ -388,7 +388,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readInt(): Unit {
         let data = MessageSequence.create()
         data.writeShort(10)
@@ -398,7 +398,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readLong(): Unit {
         let data = MessageSequence.create()
         data.writeLong(10000)
@@ -408,7 +408,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readFloat(): Unit {
         let data = MessageSequence.create()
         data.writeFloat(1.2)
@@ -418,7 +418,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readDouble(): Unit {
         let data = MessageSequence.create()
         data.writeDouble(10.2)
@@ -428,7 +428,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readBoolean(): Unit {
         let data = MessageSequence.create()
         data.writeBoolean(false)
@@ -438,7 +438,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readChar(): Unit {
         let data = MessageSequence.create()
         data.writeChar(97)
@@ -448,7 +448,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readString(): Unit {
         let data = MessageSequence.create()
         data.writeString("abc")
@@ -458,7 +458,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_readByteArray(): Unit {
         let data = MessageSequence.create()
         let arr: Array<Int8> = [1, 2, 3, 4, 5]
@@ -469,7 +469,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_File(): Unit {
         let filePath = "/data/storage/el2/base/test_rpc.txt"
         let file = FileIo.open(
@@ -490,7 +490,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_getRawDataCapacity(): Unit {
         let data = MessageSequence.create()
         let result = data.getRawDataCapacity()
@@ -500,7 +500,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_ArrayBuffer(): Unit {
         let data = MessageSequence.create()
         let arr2: Array<UInt8> = [0, 255]
@@ -527,7 +527,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_parcelable(): Unit {
         let parcelable = MyParcelable(1, "aaa")
         let data = MessageSequence.create()
@@ -540,7 +540,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_parcelable_array(): Unit {
         let parcelable = MyParcelable(1, "aaa")
         let parcelable2 = MyParcelable(2, "bbb")
@@ -559,7 +559,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_write_read_RawDataBuffer(): Unit {
         let size = 64 * 1024
         let buffer = Array<Byte>(size, repeat: 1)
@@ -570,7 +570,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_Ashmem_read_write(): Unit {
         let data: MessageSequence = MessageSequence.create()
         let ashmem: Ashmem = Ashmem.create("ashmem", 1024i32)
@@ -611,7 +611,7 @@ class Test_rpc {
     }
 
     @TestCase
-    @Tag[APILevel21, TestLevel0]
+    @Tag[APILevel22, TestLevel0]
     func test_AshmemCreate(): Unit {
         try {
             let ashmem1: Ashmem = Ashmem.create("ashmem", 1024i32)

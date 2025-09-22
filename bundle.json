@@ -1,47 +1,45 @@
 {
-    "name": "@ohos/communication_cangjie_wrapper",
-    "version": "6.0",
-    "description": "The Distributed Softbus Cangjie API is a Cangjie API encapsulated on OpenHarmony based on the capabilities of the Distributed Softbus Subsystem.",
-    "publishAs": "code-segment",
-    "scripts": {},
-    "author": {},
-    "repository": "",
-    "license": "Apache License 2.0",
-    "segment": {
-      "destPath": "foundation/communication/communication_cangjie_wrapper"
+  "name": "@ohos/communication_cangjie_wrapper",
+  "version": "6.0",
+  "description": "The Distributed Softbus Cangjie API is a Cangjie API encapsulated on OpenHarmony based on the capabilities of the Distributed Softbus Subsystem.",
+  "publishAs": "code-segment",
+  "scripts": {},
+  "author": {},
+  "repository": "",
+  "license": "Apache License 2.0",
+  "segment": {
+    "destPath": "foundation/communication/communication_cangjie_wrapper"
+  },
+  "component": {
+    "name": "communication_cangjie_wrapper",
+    "subsystem": "communication",
+    "adapted_system_type": [
+      "standard"
+    ],
+    "features": [],
+    "syscap": [
+      "SystemCapability.Communication.IPC.Core"
+    ],
+    "rom": "300KB",
+    "ram": "228KB",
+    "deps": {
+      "components": [
+        "cangjie_ark_interop",
+        "hiviewdfx_cangjie_wrapper",
+        "ipc"
+      ]
     },
-    "component": {
-      "name": "communication_cangjie_wrapper",
-      "subsystem": "communication",
-      "adapted_system_type": [
-        "standard"
+    "build": {
+      "sub_component": [
+        "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc",
+        "//foundation/communication/communication_cangjie_wrapper/kit/IPCKit:kit.IPCKit"
       ],
-      "features": [
+      "inner_kits": [
+        {
+          "name": "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc"
+        }
       ],
-      "syscap":[
-        "SystemCapability.Communication.IPC.Core"
-      ],
-      "rom": "300KB",
-      "ram": "228KB",
-      "deps": {
-        "components": [
-          "cangjie_ark_interop",
-          "hiviewdfx_cangjie_wrapper",
-          "ipc"
-        ]
-      },
-      "build": {
-        "sub_component": [
-          "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc",
-          "//foundation/communication/communication_cangjie_wrapper/kit/IPCKit:kit.IPCKit"
-        ],
-        "inner_kits": [
-          {
-            "name": "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc"
-          }
-        ],
-        "test": [
-        ]
-      }
+      "test": []
     }
   }
+}

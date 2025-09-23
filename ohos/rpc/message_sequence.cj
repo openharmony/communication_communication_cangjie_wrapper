@@ -44,7 +44,7 @@ const BYTE_SIZE_64: UIntNative = 8
  * @relation class MessageSequence
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Communication.IPC.Core"
 ]
 public class MessageSequence <: RemoteDataLite {
@@ -64,7 +64,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation static create(): MessageSequence
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static func create(): MessageSequence {
@@ -81,7 +81,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation reclaim(): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func reclaim(): Unit {
@@ -101,7 +101,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeInterfaceToken(token: string): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeInterfaceToken(token: String): Unit {
@@ -120,7 +120,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readInterfaceToken(): string
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readInterfaceToken(): String {
@@ -141,7 +141,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation getSize(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getSize(): UInt32 {
@@ -158,7 +158,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation getCapacity(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getCapacity(): UInt32 {
@@ -180,7 +180,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation setSize(size: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func setSize(size: UInt32): Unit {
@@ -202,7 +202,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation setCapacity(size: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func setCapacity(size: UInt32): Unit {
@@ -220,7 +220,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation getWritableBytes(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getWritableBytes(): UInt32 {
@@ -238,7 +238,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation getReadableBytes(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getReadableBytes(): UInt32 {
@@ -255,7 +255,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation getReadPosition(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getReadPosition(): UInt32 {
@@ -272,7 +272,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation getWritePosition(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getWritePosition(): UInt32 {
@@ -294,7 +294,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation rewindWrite(pos: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func rewindWrite(pos: UInt32): Unit {
@@ -315,7 +315,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation rewindRead(pos: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func rewindRead(pos: UInt32): Unit {
@@ -333,7 +333,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeNoException(): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeNoException(): Unit {
@@ -352,7 +352,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readException(): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readException(): Unit {
@@ -379,7 +379,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeByte(val: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeByte(val: Int8): Unit {
@@ -399,7 +399,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeShort(val: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeShort(val: Int16): Unit {
@@ -419,7 +419,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeInt(val: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeInt(val: Int32): Unit {
@@ -439,7 +439,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeLong(val: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeLong(val: Int64): Unit {
@@ -459,7 +459,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeFloat(val: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeFloat(val: Float32): Unit {
@@ -479,7 +479,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeDouble(val: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeDouble(val: Float64): Unit {
@@ -499,7 +499,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeBoolean(val: boolean): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeBoolean(val: Bool): Unit {
@@ -524,7 +524,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeChar(val: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeChar(val: UInt8): Unit {
@@ -546,7 +546,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeString(val: string): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeString(val: String): Unit {
@@ -571,7 +571,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeByteArray(byteArray: number[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeByteArray(byteArray: Array<Int8>): Unit {
@@ -598,7 +598,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeShortArray(shortArray: number[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeShortArray(shortArray: Array<Int16>): Unit {
@@ -625,7 +625,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeIntArray(intArray: number[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeIntArray(intArray: Array<Int32>): Unit {
@@ -652,7 +652,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeLongArray(longArray: number[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeLongArray(longArray: Array<Int64>): Unit {
@@ -679,7 +679,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeFloatArray(floatArray: number[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeFloatArray(floatArray: Array<Float32>): Unit {
@@ -706,7 +706,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeDoubleArray(doubleArray: number[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeDoubleArray(doubleArray: Array<Float64>): Unit {
@@ -732,7 +732,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeBooleanArray(booleanArray: boolean[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeBooleanArray(booleanArray: Array<Bool>): Unit {
@@ -768,7 +768,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeCharArray(charArray: number[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeCharArray(charArray: Array<UInt8>): Unit {
@@ -795,7 +795,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeStringArray(stringArray: string[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeStringArray(stringArray: Array<String>): Unit {
@@ -814,7 +814,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readByte(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readByte(): Int8 {
@@ -832,7 +832,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readShort(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readShort(): Int16 {
@@ -850,7 +850,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readInt(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readInt(): Int32 {
@@ -868,7 +868,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readLong(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readLong(): Int64 {
@@ -886,7 +886,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readFloat(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readFloat(): Float32 {
@@ -904,7 +904,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readDouble(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readDouble(): Float64 {
@@ -922,7 +922,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readBoolean(): boolean
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readBoolean(): Bool {
@@ -944,7 +944,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readChar(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readChar(): UInt8 {
@@ -962,7 +962,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readString(): string
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readString(): String {
@@ -985,7 +985,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readByteArray(): number[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readByteArray(): Array<Int8> {
@@ -1005,7 +1005,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readShortArray(): number[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readShortArray(): Array<Int16> {
@@ -1025,7 +1025,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readIntArray(): number[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readIntArray(): Array<Int32> {
@@ -1045,7 +1045,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readLongArray(): number[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readLongArray(): Array<Int64> {
@@ -1065,7 +1065,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readFloatArray(): number[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readFloatArray(): Array<Float32> {
@@ -1085,7 +1085,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readDoubleArray(): number[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readDoubleArray(): Array<Float64> {
@@ -1105,7 +1105,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readBooleanArray(): boolean[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readBooleanArray(): Array<Bool> {
@@ -1125,7 +1125,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readCharArray(): number[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readCharArray(): Array<UInt8> {
@@ -1145,7 +1145,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readStringArray(): string[]
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readStringArray(): Array<String> {
@@ -1169,7 +1169,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation static closeFileDescriptor(fd: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static func closeFileDescriptor(fd: Int32): Unit {
@@ -1188,7 +1188,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation static dupFileDescriptor(fd: number): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static func dupFileDescriptor(fd: Int32): Int32 {
@@ -1207,7 +1207,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation containFileDescriptors(): boolean
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func containFileDescriptors(): Bool {
@@ -1228,7 +1228,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeFileDescriptor(fd: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeFileDescriptor(fd: Int32): Unit {
@@ -1245,7 +1245,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readFileDescriptor(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readFileDescriptor(): Int32 {
@@ -1266,7 +1266,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeAshmem(ashmem: Ashmem): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeAshmem(ashmem: Ashmem): Unit {
@@ -1284,7 +1284,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readAshmem(): Ashmem
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readAshmem(): Ashmem {
@@ -1301,7 +1301,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation getRawDataCapacity(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getRawDataCapacity(): UInt32 {
@@ -1325,7 +1325,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeUInt8Array(buf: Array<UInt8>): Unit {
@@ -1357,7 +1357,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeUInt16Array(buf: Array<UInt16>): Unit {
@@ -1389,7 +1389,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeUInt32Array(buf: Array<UInt32>): Unit {
@@ -1421,7 +1421,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeArrayBuffer(buf: ArrayBuffer, typeCode: TypeCode): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeUInt64Array(buf: Array<UInt64>): Unit {
@@ -1451,7 +1451,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readUInt8Array(): Array<UInt8> {
@@ -1475,7 +1475,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readUInt16Array(): Array<UInt16> {
@@ -1499,7 +1499,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readUInt32Array(): Array<UInt32> {
@@ -1523,7 +1523,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readArrayBuffer(typeCode: TypeCode): ArrayBuffer
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readUInt64Array(): Array<UInt64> {
@@ -1546,7 +1546,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeParcelable(val: Parcelable): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeParcelable<T>(val: T): Unit where T <: Parcelable {
@@ -1572,7 +1572,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readParcelable(dataIn: Parcelable): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readParcelable<T>(dataIn: T): Unit where T <: Parcelable {
@@ -1597,7 +1597,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeParcelableArray(parcelableArray: Parcelable[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeParcelableArray<T>(parcelableArray: Array<T>): Unit where T <: Parcelable {
@@ -1632,7 +1632,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readParcelableArray(parcelableArray: Parcelable[]): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readParcelableArray<T>(parcelableArray: Array<T>): Unit where T <: Parcelable {
@@ -1664,7 +1664,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation writeRawDataBuffer(rawData: ArrayBuffer, size: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeRawDataBuffer(rawData: Array<Byte>, size: Int64): Unit {
@@ -1692,7 +1692,7 @@ public class MessageSequence <: RemoteDataLite {
      * @relation readRawDataBuffer(size: number): ArrayBuffer
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readRawDataBuffer(size: Int64): Array<Byte> {

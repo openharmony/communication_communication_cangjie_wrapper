@@ -28,7 +28,7 @@ import ohos.business_exception.BusinessException
  * @relation class Ashmem
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Communication.IPC.Core"
 ]
 public class Ashmem <: RemoteDataLite {
@@ -46,7 +46,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation static PROT_EXEC: number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_EXEC: UInt32 = 4
@@ -57,7 +57,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation static PROT_NONE: number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_NONE: UInt32 = 0
@@ -68,7 +68,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation static PROT_READ: number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_READ: UInt32 = 1
@@ -79,7 +79,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation static PROT_WRITE: number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_WRITE: UInt32 = 2
@@ -98,7 +98,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation static create(name: string, size: number): Ashmem
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static func create(name: String, size: Int32): Ashmem {
@@ -128,7 +128,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation static create(ashmem: Ashmem): Ashmem
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static func create(ashmem: Ashmem): Ashmem {
@@ -144,7 +144,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation closeAshmem(): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func closeAshmem(): Unit {
@@ -157,7 +157,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation unmapAshmem(): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func unmapAshmem(): Unit {
@@ -171,7 +171,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation getAshmemSize(): number
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getAshmemSize(): Int32 {
@@ -194,7 +194,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation mapTypedAshmem(mapType: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func mapTypedAshmem(mapType: UInt32): Unit {
@@ -210,7 +210,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation mapReadWriteAshmem(): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func mapReadWriteAshmem(): Unit {
@@ -226,7 +226,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation mapReadonlyAshmem(): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func mapReadonlyAshmem(): Unit {
@@ -246,7 +246,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation setProtectionType(protectionType: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func setProtectionType(protectionType: UInt32): Unit {
@@ -270,7 +270,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation writeDataToAshmem(buf: ArrayBuffer, size: number, offset: number): void
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeDataToAshmem(buf: Array<Byte>, size: Int64, offset: Int64): Unit {
@@ -300,7 +300,7 @@ public class Ashmem <: RemoteDataLite {
      * @relation readDataFromAshmem(size: number, offset: number): ArrayBuffer
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readDataFromAshmem(size: Int64, offset: Int64): Array<Byte> {

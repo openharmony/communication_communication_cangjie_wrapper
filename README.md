@@ -16,6 +16,8 @@ As shown in the architecture diagram:
 - Ashmem: Provides methods related to anonymous shared memory objects.
 - Cangjie distributed soft bus FFI interface definition: Responsible for defining the C Language interoperable Cangjie interface, which is used to realize Cangjie's distributed soft bus capabilities.
 - Remote Procedure Call: Responsible for providing basic RPC functions, and encapsulating the C Language interface to provide Cangjie for interoperability.
+- cangjie_ark_interop: Responsible for providing Cangjie APILevel class definitions, which are used to annotate APIs, as well as providing the definition of BusinessException class that is thrown to users.
+- hiviewdfx_cangjie_wrapper: Responsible for providing logging interfaces, which are used to print logs at key points in the execution path.
 
 ## Directory Structure
 
@@ -28,11 +30,10 @@ foundation/communication/communication_cangjie_wrapper
 │   └── IPCKit
 ├── ohos                                # Cangjie IPC code
 │   └── rpc
-│       └── message_sequence.cj         # The interface for MessageSequence
+│       ├── message_sequence.cj         # The interface for MessageSequence
 │       └── ashmem.cj                   # The interface for Ashmem
 └── test                                # Cangjie test cases
-    └── APILevel22
-        └── rpc                         # rpc test cases
+    └── rpc                             # rpc test cases
 ```
 
 ## Usage

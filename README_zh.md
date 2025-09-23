@@ -16,6 +16,8 @@
 - 匿名共享内存对象：提供与匿名共享内存对象相关的方法，包括创建、关闭、映射和取消映射Ashmem、从Ashmem读取数据和写入数据、获取Ashmem大小、设置Ashmem保护。
 - 仓颉分布式软总线FFI接口定义：负责定义C语言互操作仓颉接口，用于实现仓颉分布式软总线能力。
 - RPC通信：负责提供RPC基础功能，封装C语言接口提供给仓颉进行互操作。
+- cangjie_ark_interop：负责提供仓颉注解类定义，用于对API进行标注，以及提供抛向用户的BusinessException异常类定义。
+- hiviewdfx_cangjie_wrapper：负责提供日志接口，用于在关键路径处打印日志。
 
 ## 目录
 
@@ -28,11 +30,10 @@ foundation/communication/communication_cangjie_wrapper
 │   └── IPCKit
 ├── ohos                                # 仓颉IPC接口实现
 │   └── rpc
-│       └── message_sequence.cj         # 消息序列接口
+│       ├── message_sequence.cj         # 消息序列接口
 │       └── ashmem.cj                   # 匿名共享内存对象接口
 └── test                                # 仓颉测试用例
-    └── APILevel22
-        └── rpc                         # rpc测试用例
+    └── rpc                             # rpc测试用例
 ```
 
 ## 使用说明

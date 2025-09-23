@@ -31,6 +31,8 @@ foundation/communication/communication_cangjie_wrapper
 │       └── message_sequence.cj         # The interface for MessageSequence
 │       └── ashmem.cj                   # The interface for Ashmem
 └── test                                # Cangjie test cases
+    └── APILevel22
+        └── rpc                         # rpc test cases
 ```
 
 ## Usage
@@ -46,7 +48,7 @@ Compared with ArkTS, the following functions are not supported at the moment:
 - Obtain IPC context information, including obtaining UID and PID, obtaining local and peer device IDs, and checking whether interface calls are on the same device.
 - Implement remote objects.
 
-See Camera APIs[ohos.rpc (RPC Communication)](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/IPCKit/cj-apis-rpc.md).For guidance, please refer to[RPC Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/ipc/cj-ipc-rpc-overview.md).
+See Camera APIs[RPC Communication](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/IPCKit/cj-apis-rpc.md).For guidance, please refer to[RPC Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/ipc/cj-ipc-rpc-overview.md).
 
 ## Code Contribution
 

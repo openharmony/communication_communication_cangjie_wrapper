@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The Distributed Softbus Cangjie API is a Cangjie API encapsulated on OpenHarmony based on the capabilities of the Distributed Softbus Subsystem. The distributed soft bus subsystem is designed to provide communication-related capabilities for the OpenHarmony system. The currently open distributed soft bus Cangjie interface only supports standard devices.
+The distributed soft bus subsystem is designed to provide communication-related capabilities for the OpenHarmony system. The currently open distributed soft bus Cangjie interface only supports standard devices.
 
 ## System Architecture
 
@@ -12,10 +12,20 @@ The Distributed Softbus Cangjie API is a Cangjie API encapsulated on OpenHarmony
 
 As shown in the architecture diagram:
 
+Interface:
+
 - MessageSequence: Provides the data format used for communication.
 - Ashmem: Provides methods related to anonymous shared memory objects.
+
+Framework:
+
+- MessageSequence wrapper: Implementation encapsulation of Cangjie MessageSequence, providing MessageSequence capabilities.
+- Ashmem wrapper: Implementation encapsulation of Cangjie Ashmem, providing Ashmem capabilities.
 - Cangjie distributed soft bus FFI interface definition: Responsible for defining the C Language interoperable Cangjie interface, which is used to realize Cangjie's distributed soft bus capabilities.
-- Remote Procedure Call: Responsible for providing basic RPC functions, and encapsulating the C Language interface to provide Cangjie for interoperability.
+
+- Explanation of Dependencies in the Architecture Diagram:
+
+- communication_ipc: Responsible for providing basic RPC functions, and encapsulating the C Language interface to provide Cangjie for interoperability.
 - cangjie_ark_interop: Responsible for providing Cangjie APILevel class definitions, which are used to annotate APIs, as well as providing the definition of BusinessException class that is thrown to users.
 - hiviewdfx_cangjie_wrapper: Responsible for providing logging interfaces, which are used to print logs at key points in the execution path.
 
@@ -43,13 +53,15 @@ The current distributed soft bus Cangjie interface provides the following functi
 - Provides basic types and data formats for communication, such as arrays, IPC objects, interface descriptors, and custom serialization objects.
 - Provides methods related to anonymous shared memory objects, including creating, closing, mapping, and unmapping Ashmem, reading and writing data from Ashmem, getting Ashmem size, and setting Ashmem protection.
 
+See Camera APIs[RPC Communication](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/IPCKit/cj-apis-rpc.md).For guidance, please refer to[RPC Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/ipc/cj-ipc-rpc-overview.md).
+
+## Constraints
+
 Compared with ArkTS, the following functions are not supported at the moment:
 
 - Implement IRemoteObject proxy objects.
 - Obtain IPC context information, including obtaining UID and PID, obtaining local and peer device IDs, and checking whether interface calls are on the same device.
 - Implement remote objects.
-
-See Camera APIs[RPC Communication](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/IPCKit/cj-apis-rpc.md).For guidance, please refer to[RPC Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/ipc/cj-ipc-rpc-overview.md).
 
 ## Code Contribution
 
@@ -57,7 +69,7 @@ Developers are welcome to contribute code, documentation, etc. For specific cont
 
 ## Repositories Involved
 
-[ark_compiler_cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop)
+[arkcompiler_cangjie_ark_interop](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop)
 
 [communication_ipc](https://gitcode.com/openharmony/communication_ipc)
 

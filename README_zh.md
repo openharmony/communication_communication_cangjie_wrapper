@@ -56,11 +56,14 @@ RPC相关API请参见[RPC通信](https://gitcode.com/openharmony-sig/arkcompiler
 
 ## 约束
 
-与ArkTS提供的API能力相比，暂不支持以下功能：
+与ArkTS提供的API能力相比：
 
-- 实现IRemoteObject代理对象。
-- 获取IPC上下文信息，包括获取UID和PID、获取本端和对端设备ID、检查接口调用是否在同一设备上。
-- 实现远程对象。
+- IPC暂不支持以下功能：
+  - 实现IRemoteObject代理对象。
+  - 获取IPC上下文信息，包括获取UID和PID、获取本端和对端设备ID、检查接口调用是否在同一设备上。
+  - 实现远程对象。
+
+- 暂不支持蓝牙、WLAN功能。
 
 ## 参与贡献
 

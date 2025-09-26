@@ -21,7 +21,6 @@ Framework:
 
 - MessageSequence wrapper: Implementation encapsulation of Cangjie MessageSequence, providing MessageSequence capabilities.
 - Ashmem wrapper: Implementation encapsulation of Cangjie Ashmem, providing Ashmem capabilities.
-- Cangjie distributed soft bus FFI interface definition: Responsible for defining the C Language interoperable Cangjie interface, which is used to realize Cangjie's distributed soft bus capabilities.
 
 - Explanation of Dependencies in the Architecture Diagram:
 

@@ -49,7 +49,7 @@ foundation/communication/communication_cangjie_wrapper
 当前进程间通信仓颉接口提供了以下功能：
 
 - 提供与匿名共享内存对象相关的方法，包括创建、关闭、映射和取消映射Ashmem、从Ashmem读取数据和写入数据、获取Ashmem大小、设置Ashmem保护。
-- 提供有符号整型、无符号整型、单精度浮点数、双精度浮点数、布尔类型、字符、字符串及对应的数组、fd、接口描述符、匿名共享内存对象和自定义序列化对象这些用来通信的数据格式。
+- 提供有符号整型、单精度浮点数、双精度浮点数、布尔类型、字符、字符串及对应的数组、fd、接口描述符、匿名共享内存对象和自定义序列化对象这些用来通信的数据格式。
 
 RPC相关API请参见[RPC通信](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_zh_cn/apis/IPCKit/cj-apis-rpc.md)，相关指导请参见[RPC开发指南](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_zh_cn/ipc/cj-ipc-rpc-overview.md)。
 

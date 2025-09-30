@@ -13,6 +13,6 @@
  * limitations under the License.
  */
 
-package IPCKit
+package kit.IPCKit
 
 public import ohos.rpc.*

@@ -1,4 +1,4 @@
-# Inter-Process Communication Cangjie Wrapper
+# Inter-Process Communication Cangjie Wrapper(beta feature)
 
 ## Introduction
 

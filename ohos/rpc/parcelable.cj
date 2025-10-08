@@ -23,8 +23,6 @@ import ohos.labels.*
 /**
  * During inter-process communication, objects of the class are written to the {@link MessageSequence} and
  * they are recovered from the {@link MessageSequence}.
- *
- * @relation interface Parcelable
  */
 @!APILevel[
     22,
@@ -33,8 +31,6 @@ import ohos.labels.*
 public interface Parcelable {
     /**
      * Marshal this {@code Parcelable} object into a {@link MessageSequence}.
-     *
-     * @relation marshalling(dataOut: MessageSequence): boolean
      */
     @!APILevel[
         22,
@@ -44,8 +40,6 @@ public interface Parcelable {
 
     /**
      * Unmarshal this {@code Parcelable} object from a {@link MessageSequence}.
-     *
-     * @relation unmarshalling(dataIn: MessageSequence): boolean
      */
     @!APILevel[
         22,

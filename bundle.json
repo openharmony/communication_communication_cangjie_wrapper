@@ -1,6 +1,6 @@
 {
   "name": "@ohos/communication_cangjie_wrapper",
-  "version": "6.0",
+  "version": "6.1",
   "description": "The Distributed Softbus Cangjie API is a Cangjie API encapsulated on OpenHarmony based on the capabilities of the Distributed Softbus Subsystem.",
   "publishAs": "code-segment",
   "scripts": {},

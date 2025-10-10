@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+// The Cangjie API is in Beta. For details on its capabilities and limitations, please refer to the README file.
+
 package ohos.rpc
 
 import ohos.labels.*
@@ -24,8 +26,6 @@ import ohos.business_exception.BusinessException
  * including creating, closing, mapping, and unmapping an Ashmem object,
  * reading data from and writing data to an Ashmem object,
  * obtaining the Ashmem size, and setting Ashmem protection.
- *
- * @relation class Ashmem
  */
 @!APILevel[
     since: "22",
@@ -42,8 +42,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * The mapped memory is executable. Default value is 4.
-     *
-     * @relation static PROT_EXEC: number
      */
     @!APILevel[
         since: "22",
@@ -53,8 +51,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * The mapped memory is inaccessible. Default value is 0.
-     *
-     * @relation static PROT_NONE: number
      */
     @!APILevel[
         since: "22",
@@ -64,8 +60,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * The mapped memory is readable. Default value is 1.
-     *
-     * @relation static PROT_READ: number
      */
     @!APILevel[
         since: "22",
@@ -75,8 +69,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * The mapped memory is writable. Default value is 2.
-     *
-     * @relation static PROT_WRITE: number
      */
     @!APILevel[
         since: "22",
@@ -95,7 +87,6 @@ public class Ashmem <: RemoteDataLite {
      *     2.The parameter type does not match;
      *     3.The Ashmem name passed is empty;
      *     4.The Ashmem size passed is less than or equal to 0.
-     * @relation static create(name: string, size: number): Ashmem
      */
     @!APILevel[
         since: "22",
@@ -125,7 +116,6 @@ public class Ashmem <: RemoteDataLite {
      *     1.The number of parameters is incorrect;
      *     2.The passed parameter is not an Ahmem object;
      *     3.The ashmem instance for obtaining packaging is empty.
-     * @relation static create(ashmem: Ashmem): Ashmem
      */
     @!APILevel[
         since: "22",
@@ -140,8 +130,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Closes this Ashmem object.
-     *
-     * @relation closeAshmem(): void
      */
     @!APILevel[
         since: "22",
@@ -153,8 +141,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Deletes the mappings for the specified address range of this Ashmem object.
-     *
-     * @relation unmapAshmem(): void
      */
     @!APILevel[
         since: "22",
@@ -168,7 +154,6 @@ public class Ashmem <: RemoteDataLite {
      * Obtains the mapped memory size of this Ashmem object.
      *
      * @returns { Int32 } Memory size mapped.
-     * @relation getAshmemSize(): number
      */
     @!APILevel[
         since: "22",
@@ -191,7 +176,6 @@ public class Ashmem <: RemoteDataLite {
      *     2.The parameter type does not match;
      *     3.The passed mapType exceeds the maximum protection level.
      * @throws { BusinessException } 1900001 - Failed to call mmap.
-     * @relation mapTypedAshmem(mapType: number): void
      */
     @!APILevel[
         since: "22",
@@ -207,7 +191,6 @@ public class Ashmem <: RemoteDataLite {
      * Maps the shared file to the readable and writable virtual address space of the process.
      *
      * @throws { BusinessException } 1900001 - Failed to call mmap.
-     * @relation mapReadWriteAshmem(): void
      */
     @!APILevel[
         since: "22",
@@ -223,7 +206,6 @@ public class Ashmem <: RemoteDataLite {
      * Maps the shared file to the read-only virtual address space of the process.
      *
      * @throws { BusinessException } 1900001 - Failed to call mmap.
-     * @relation mapReadonlyAshmem(): void
      */
     @!APILevel[
         since: "22",
@@ -243,7 +225,6 @@ public class Ashmem <: RemoteDataLite {
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900002 - Failed to call ioctl.
-     * @relation setProtectionType(protectionType: number): void
      */
     @!APILevel[
         since: "22",
@@ -267,7 +248,6 @@ public class Ashmem <: RemoteDataLite {
      *     2.The parameter type does not match;
      *     3.Failed to obtain arrayBuffer information.
      * @throws { BusinessException } 1900003 - Failed to write data to the shared memory.
-     * @relation writeDataToAshmem(buf: ArrayBuffer, size: number, offset: number): void
      */
     @!APILevel[
         since: "22",
@@ -297,7 +277,6 @@ public class Ashmem <: RemoteDataLite {
      *     1.The number of parameters is incorrect;
      *     2.The parameter type does not match.
      * @throws { BusinessException } 1900004 - Failed to read data from the shared memory.
-     * @relation readDataFromAshmem(size: number, offset: number): ArrayBuffer
      */
     @!APILevel[
         since: "22",

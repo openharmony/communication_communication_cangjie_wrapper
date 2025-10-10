@@ -22,10 +22,10 @@ import std.unittest.testmacro.*
 import ohos.business_exception.*
 import std.unittest.*
 import std.unittest.common.*
-import IPCKit.*
+import kit.IPCKit.*
 import std.collection.ArrayList
-import CoreFileKit.*
-import PerformanceAnalysisKit.Hilog
+import kit.CoreFileKit.*
+import kit.PerformanceAnalysisKit.Hilog
 
 @Test
 class Test_rpc {

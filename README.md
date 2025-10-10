@@ -1,4 +1,4 @@
-# Inter-Process Communication Cangjie Wrapper
+# Inter-Process Communication Cangjie Wrapper(beta feature)
 
 ## Introduction
 
@@ -55,7 +55,7 @@ The current distributed soft bus Cangjie interface provides the following functi
 
 - Provides methods related to anonymous shared memory objects, including creating, closing, mapping and unmapping Ashmem, reading data from and writing data to Ashmem, obtaining the size of Ashmem, and setting Ashmem protection. 
 
-- Provides communication data formats such as signed integers, unsigned integers, single-precision floating-point numbers, double-precision floating-point numbers, booleans, characters, strings and their corresponding arrays, file descriptors (fd), interface descriptors, anonymous shared memory objects, and custom serialized objects.
+- Provides basic types (signed integer, single-precision float, double-precision float, boolean, character, string) and arrays of basic types, file descriptors (fd), interface descriptors, anonymous shared memory objects, and custom serialized objects for communication purposes.
 
 See Camera APIs[RPC Communication](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/API_Reference/source_en/apis/IPCKit/cj-apis-rpc.md).For guidance, please refer to[RPC Development Guide](https://gitcode.com/openharmony-sig/arkcompiler_cangjie_ark_interop/blob/master/doc/Dev_Guide/source_en/ipc/cj-ipc-rpc-overview.md).
 
@@ -64,7 +64,8 @@ See Camera APIs[RPC Communication](https://gitcode.com/openharmony-sig/arkcompil
 - When communicating across processes on a single device, the maximum amount of data that can be transmitted is 200KB. For data exceeding 200KB, please use anonymous shared memory.
 
 - Compared with the API capabilities provided by ArkTS, the following functions are currently not supported:
-    - Remote object communication.
+  - Remote object communication.
+  - OneWay
 
 ## Code Contribution
 

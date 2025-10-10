@@ -13,6 +13,8 @@
  * limitations under the License.
  */
 
+// The Cangjie API is in Beta. For details on its capabilities and limitations, please refer to the README file.
+
 package ohos.rpc
 
 import ohos.labels.*
@@ -21,8 +23,6 @@ import ohos.labels.*
 /**
  * During inter-process communication, objects of the class are written to the {@link MessageSequence} and
  * they are recovered from the {@link MessageSequence}.
- *
- * @relation interface Parcelable
  */
 @!APILevel[
     since: "22",
@@ -31,8 +31,6 @@ import ohos.labels.*
 public interface Parcelable {
     /**
      * Marshal this {@code Parcelable} object into a {@link MessageSequence}.
-     *
-     * @relation marshalling(dataOut: MessageSequence): boolean
      */
     @!APILevel[
         since: "22",
@@ -42,8 +40,6 @@ public interface Parcelable {
 
     /**
      * Unmarshal this {@code Parcelable} object from a {@link MessageSequence}.
-     *
-     * @relation unmarshalling(dataIn: MessageSequence): boolean
      */
     @!APILevel[
         since: "22",

@@ -82,11 +82,6 @@ public class Ashmem <: RemoteDataLite {
      * @param { String } name - Name of the Ashmem object to create.
      * @param { Int32 } size - Size (in bytes) of the Ashmem object to create.
      * @returns { Ashmem } Return the Ashmem object if it is created successfully; return null otherwise.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The Ashmem name passed is empty;
-     *     4.The Ashmem size passed is less than or equal to 0.
      */
     @!APILevel[
         since: "22",
@@ -112,10 +107,6 @@ public class Ashmem <: RemoteDataLite {
      *
      * @param { Ashmem } ashmem - Existing Ashmem object.
      * @returns { Ashmem } Ashmem object created.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The passed parameter is not an Ahmem object;
-     *     3.The ashmem instance for obtaining packaging is empty.
      */
     @!APILevel[
         since: "22",
@@ -171,10 +162,6 @@ public class Ashmem <: RemoteDataLite {
      * The size of the mapping region is specified by this Ashmem object.
      *
      * @param { UInt32 } mapType - Protection level of the memory region to which the shared file is mapped.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The passed mapType exceeds the maximum protection level.
      * @throws { BusinessException } 1900001 - Failed to call mmap.
      */
     @!APILevel[
@@ -221,9 +208,6 @@ public class Ashmem <: RemoteDataLite {
      * Sets the protection level of the memory region to which the shared file is mapped.
      *
      * @param { UInt32 } protectionType - Protection type to set.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900002 - Failed to call ioctl.
      */
     @!APILevel[
@@ -243,10 +227,6 @@ public class Ashmem <: RemoteDataLite {
      * @param { Int64 } size - Size of the data to write
      * @param { Int64 } offset - Start position of the data to write in the memory region associated
      *                   with this Ashmem object.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.Failed to obtain arrayBuffer information.
      * @throws { BusinessException } 1900003 - Failed to write data to the shared memory.
      */
     @!APILevel[
@@ -273,9 +253,6 @@ public class Ashmem <: RemoteDataLite {
      * @param { Int64 } offset - Start position of the data to read in the memory region associated
      *                   with this Ashmem object.
      * @returns { Array<Byte> } Data read.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900004 - Failed to read data from the shared memory.
      */
     @!APILevel[

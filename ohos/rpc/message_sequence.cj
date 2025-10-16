@@ -39,9 +39,10 @@ const BYTE_SIZE_64: UIntNative = 8
  * use {@link #setCapacity(int)} to change it.
  * </p>
  * <b>Note</b>: Only data of the following data types can be written into or read from a {@link MessageSequence}:
- * Int8, Int8Array, Int16, Int16Array, Int32, Int32Array, Int64, Int64Array, Float32, Float32Array, Float64, Float64Array,
- * Bool, BoolArray, UInt8, UInt8Array, String, StringArray,
+ * Int8, Int8Array, Int16, Int16Array, Int32, Int32Array, Int64, Int64Array, Float32, Float32Array, Float64,
+ * Float64Array, Bool, BoolArray, UInt8, UInt8Array, String, StringArray,
  * {@link Parcelable}, and ParcelableArray.
+ *
  */
 @!APILevel[
     since: "22",
@@ -76,6 +77,7 @@ public class MessageSequence <: RemoteDataLite {
 
     /**
      * Reclaim the {@link MessageSequence} object.
+     *
      */
     @!APILevel[
         since: "22",
@@ -89,11 +91,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes an interface token into the {@link MessageSequence} object.
      *
      * @param { String } token - Interface descriptor to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The String length exceeds 40960 bytes;
-     *     4.The number of bytes copied to the buffer is different from the length of the obtained String.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -167,9 +164,6 @@ public class MessageSequence <: RemoteDataLite {
      * than the storage capacity of the {@link MessageSequence}.
      *
      * @param { UInt32 } size - Indicates the data size of the {@link MessageSequence} object.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      */
     @!APILevel[
         since: "22",
@@ -187,9 +181,6 @@ public class MessageSequence <: RemoteDataLite {
      * the size of data contained in the {@link MessageSequence}.
      *
      * @param { UInt32 } size - Indicates the storage capacity of the {@link MessageSequence} object.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900011 - Memory allocation failed.
      */
     @!APILevel[
@@ -275,9 +266,6 @@ public class MessageSequence <: RemoteDataLite {
      * change it, change it to an accurate position. Otherwise, the read data may be incorrect.
      *
      * @param { UInt32 } pos - Indicates the target position to start data reading.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      */
     @!APILevel[
         since: "22",
@@ -295,9 +283,6 @@ public class MessageSequence <: RemoteDataLite {
      * change it, change it to an accurate position. Otherwise, the data to be read may be incorrect.
      *
      * @param { UInt32 } pos - Indicates the target position to start data writing.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      */
     @!APILevel[
         since: "22",
@@ -355,9 +340,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Int8 value into the {@link MessageSequence} object.
      *
      * @param { Int8 } val - Indicates the Int8 value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -374,9 +356,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Int16 value into the {@link MessageSequence} object.
      *
      * @param { Int16 } val - Indicates the Int16 value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -393,9 +372,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes an Int32 into the {@link MessageSequence} object.
      *
      * @param { Int32 } val - Indicates the Int32 value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -412,9 +388,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Int64 value into the {@link MessageSequence} object.
      *
      * @param { Int64 } val - Indicates the Int64 value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -431,9 +404,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Float32 value into the {@link MessageSequence} object.
      *
      * @param { Float32 } val - Indicates the Float32 value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -450,9 +420,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Float64 value into the {@link MessageSequence} object.
      *
      * @param { Float64 } val - Indicates the Float64 value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -469,9 +436,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Bool value into the {@link MessageSequence} object.
      *
      * @param { Bool } val - Indicates the Bool value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -493,9 +457,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a UInt8 value into the {@link MessageSequence} object.
      *
      * @param { UInt8 } val - Indicates the UInt8 value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -512,11 +473,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a String value into the {@link MessageSequence} object.
      *
      * @param { String } val - Indicates the String value to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The String length exceeds 40960 bytes;
-     *     4.The number of bytes copied to the buffer is different from the length of the obtained String.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -535,12 +491,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a Int8 array into the {@link MessageSequence} object.
      *
      * @param { Array<Int8> } byteArray - Indicates the Int8 array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array.
-     *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -561,12 +511,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Int16> } shortArray - Indicates the Int16 array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array;
-     *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -587,12 +531,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Int32> } intArray - Indicates the Int32 array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array;
-     *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -613,12 +551,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Int64> } longArray - Indicates the Int64 array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array;
-     *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -639,12 +571,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Float32> } floatArray - Indicates the Float32 array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array;
-     *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -665,12 +591,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Float64> } doubleArray - Indicates the Float64 array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array;
-     *     5.The type of the element in the array is incorrect.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -691,11 +611,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<Bool> } booleanArray - Indicates the Bool array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -726,11 +641,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<UInt8> } charArray - Indicates the UInt8 array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -751,12 +661,6 @@ public class MessageSequence <: RemoteDataLite {
      * Otherwise,data may be truncated.
      *
      * @param { Array<String> } StringArray - Indicates the String array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The String length exceeds 40960 bytes;
-     *     5.The number of bytes copied to the buffer is different from the length of the obtained String.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -936,7 +840,6 @@ public class MessageSequence <: RemoteDataLite {
      * Reads a Int8 array from the {@link MessageSequence} object.
      *
      * @returns { Array<Int8> } Return a Int8 array.
-     * @throws IllegalArgumentException - check param failed
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
@@ -1110,9 +1013,6 @@ public class MessageSequence <: RemoteDataLite {
      * Closes the specified file descriptor.
      *
      * @param { Int32 } fd - File descriptor to be closed.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      */
     @!APILevel[
         since: "22",
@@ -1127,9 +1027,6 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Int32 } fd - File descriptor to be duplicated.
      * @returns { Int32 } Return a duplicated file descriptor.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900013 - Failed to call dup.
      */
     @!APILevel[
@@ -1165,9 +1062,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a file descriptor to this {@link MessageSequence} object.
      *
      * @param { Int32 } fd - File descriptor to wrote.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1201,9 +1095,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes an anonymous shared memory object to this {@link MessageSequence} object.
      *
      * @param { Ashmem } ashmem - Anonymous shared memory object to wrote.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter is not an instance of the Ashmem object.
      * @throws { BusinessException } 1900003 - Failed to write data to the shared memory.
      */
     @!APILevel[
@@ -1220,7 +1111,6 @@ public class MessageSequence <: RemoteDataLite {
      * Reads the anonymous shared memory object from this {@link MessageSequence} object.
      *
      * @returns { Ashmem } Return the anonymous share object obtained.
-     * @throws IllegalArgumentException - check param failed
      * @throws { BusinessException } 1900004 - Failed to read data from the shared memory.
      */
     @!APILevel[
@@ -1254,12 +1144,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes the data in an Array<UInt8> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt8> } buf - Data to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1285,12 +1169,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes the data in an Array<UInt16> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt16> } buf - Data to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1316,12 +1194,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes the data in an Array<UInt32> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt32> } buf - Data to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1347,12 +1219,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes the data in an Array<UInt64> object into this {@Link MessageSequence} object.
      *
      * @param { Array<UInt64> } buf - Data to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The obtained value of typeCode is incorrect;
-     *     5.Failed to obtain array information.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1378,10 +1244,6 @@ public class MessageSequence <: RemoteDataLite {
      * Reads raw data from this {@link MessageSequence} object.
      *
      * @returns { Array<UInt8> } Returns the Array<UInt8> obtained.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
@@ -1401,10 +1263,6 @@ public class MessageSequence <: RemoteDataLite {
      * Reads raw data from this {@link MessageSequence} object.
      *
      * @returns { Array<UInt16> } Returns the Array<UInt16> obtained.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
@@ -1424,10 +1282,6 @@ public class MessageSequence <: RemoteDataLite {
      * Reads raw data from this {@link MessageSequence} object.
      *
      * @returns { Array<UInt32> } Returns the Array<UInt32> obtained.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
@@ -1447,10 +1301,6 @@ public class MessageSequence <: RemoteDataLite {
      * Reads raw data from this {@link MessageSequence} object.
      *
      * @returns { Array<UInt64> } Returns the Array<UInt64> obtained.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.The obtained value of typeCode is incorrect;
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
@@ -1470,9 +1320,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a {@link Parcelable} object into the {@link MessageSequence} object.
      *
      * @param { Parcelable } val - Indicates the {@link Parcelable} object to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1495,8 +1342,6 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Parcelable } dataIn - Indicates the {@link Parcelable} object that needs to perform
      *                       the {@code unmarshalling} operation using the {@link MessageSequence}.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      * @throws { BusinessException } 1900012 - Failed to call the JS callback function.
      */
@@ -1517,11 +1362,6 @@ public class MessageSequence <: RemoteDataLite {
      * Writes a {@link Parcelable} object array into the {@link MessageSequence} object.
      *
      * @param { Array<Parcelable> } parcelableArray - Indicates the {@link Parcelable} object array to write.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The element does not exist in the array.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1549,12 +1389,6 @@ public class MessageSequence <: RemoteDataLite {
      * Reads the specified {@link Parcelable} array from this {@link MessageSequence} object.
      *
      * @param { Array<Parcelable> } parcelableArray - Parcelable array to read.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The parameter is an empty array;
-     *     2.The number of parameters is incorrect;
-     *     3.The parameter type does not match;
-     *     4.The length of the array passed when reading is not equal to the length passed when writing to the array;
-     *     5.The element does not exist in the array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      * @throws { BusinessException } 1900012 - Failed to call the JS callback function.
      */
@@ -1580,13 +1414,6 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Array<Byte> } rawData - Raw data to wrote.
      * @param { Int64 } size - Size of the raw data, in bytes.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match;
-     *     3.Failed to obtain array information;
-     *     4.The transferred size cannot be obtained;
-     *     5.The transferred size is less than or equal to 0;
-     *     6.The transferred size is greater than the byte length of rawData.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
@@ -1611,9 +1438,6 @@ public class MessageSequence <: RemoteDataLite {
      *
      * @param { Int64 } size - Size of the raw data to read.
      * @returns { Array<Byte> } Return the raw data obtained, in bytes.
-     * @throws IllegalArgumentException - Parameter error. Possible causes:
-     *     1.The number of parameters is incorrect;
-     *     2.The parameter type does not match.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[

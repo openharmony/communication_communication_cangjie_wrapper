@@ -82,12 +82,11 @@ enum TypeCode {
                 case Float64Array => 7
                 case BigInt64Array => 8
                 case BigUint64Array => 9
-                case _ => throw IllegalArgumentException("The type is not supported.")
+                case _ => throw BusinessException(1900009, "The type is not supported.")
             }
         }
     }
 }
-
 
 let ERR_CODE_MAP = HashMap<Int32, String>(
     [
@@ -108,10 +107,6 @@ let ERR_CODE_MAP = HashMap<Int32, String>(
 )
 
 func checkAndThrow(errCode: Int32): Unit {
-    if (errCode == 401) {
-        let msg = ERR_CODE_MAP[errCode]
-        throw IllegalArgumentException(msg)
-    }
     if (errCode != 0) {
         let msg = ERR_CODE_MAP[errCode]
         throw BusinessException(errCode, msg)

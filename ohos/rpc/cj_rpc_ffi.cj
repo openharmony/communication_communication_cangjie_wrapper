@@ -17,7 +17,7 @@
 
 package ohos.rpc
 
-import ohos.ffi.*
+import ohos.ffi.RetDataI64
 
 foreign {
     func FfiRpcMessageSequenceImplCreate(): Int64

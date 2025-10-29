@@ -17,7 +17,7 @@
 
 package ohos.rpc
 
-import ohos.ffi.*
+import ohos.ffi.safeMalloc
 
 @C
 struct ByteArray {

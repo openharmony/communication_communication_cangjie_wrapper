@@ -17,10 +17,10 @@
 
 package ohos.rpc
 
-import ohos.ffi.*
+import ohos.ffi.{RemoteDataLite, releaseFFIData}
 import ohos.business_exception.BusinessException
 import std.collection.ArrayList
-import ohos.labels.*
+import ohos.labels.APILevel
 
 const BYTE_SIZE_16: UIntNative = 2
 const BYTE_SIZE_32: UIntNative = 4
@@ -164,6 +164,7 @@ public class MessageSequence <: RemoteDataLite {
      * than the storage capacity of the {@link MessageSequence}.
      *
      * @param { UInt32 } size - Indicates the data size of the {@link MessageSequence} object.
+     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
@@ -181,6 +182,7 @@ public class MessageSequence <: RemoteDataLite {
      * the size of data contained in the {@link MessageSequence}.
      *
      * @param { UInt32 } size - Indicates the storage capacity of the {@link MessageSequence} object.
+     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      * @throws { BusinessException } 1900011 - Memory allocation failed.
      */
     @!APILevel[
@@ -266,6 +268,7 @@ public class MessageSequence <: RemoteDataLite {
      * change it, change it to an accurate position. Otherwise, the read data may be incorrect.
      *
      * @param { UInt32 } pos - Indicates the target position to start data reading.
+     * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
@@ -283,6 +286,7 @@ public class MessageSequence <: RemoteDataLite {
      * change it, change it to an accurate position. Otherwise, the data to be read may be incorrect.
      *
      * @param { UInt32 } pos - Indicates the target position to start data writing.
+     * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",

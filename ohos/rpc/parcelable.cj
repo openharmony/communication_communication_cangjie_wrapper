@@ -17,7 +17,7 @@
 
 package ohos.rpc
 
-import ohos.labels.*
+import ohos.labels.APILevel
 
 
 /**

@@ -17,7 +17,7 @@
 
 package ohos.rpc
 
-import ohos.ffi.*
+import ohos.ffi.{RemoteDataLite, releaseFFIData}
 
 class RemoteObjectLite <: RemoteDataLite {
     protected init(id: Int64) {

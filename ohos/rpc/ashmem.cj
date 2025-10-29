@@ -17,8 +17,8 @@
 
 package ohos.rpc
 
-import ohos.labels.*
-import ohos.ffi.*
+import ohos.labels.APILevel
+import ohos.ffi.{RemoteDataLite, releaseFFIData}
 import ohos.business_exception.BusinessException
 
 /**

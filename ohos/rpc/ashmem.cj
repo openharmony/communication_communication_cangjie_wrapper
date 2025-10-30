@@ -28,7 +28,7 @@ import ohos.business_exception.BusinessException
  * obtaining the Ashmem size, and setting Ashmem protection.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Communication.IPC.Core"
 ]
 public class Ashmem <: RemoteDataLite {
@@ -44,7 +44,7 @@ public class Ashmem <: RemoteDataLite {
      * The mapped memory is executable. Default value is 4.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_EXEC: UInt32 = 4
@@ -53,7 +53,7 @@ public class Ashmem <: RemoteDataLite {
      * The mapped memory is inaccessible. Default value is 0.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_NONE: UInt32 = 0
@@ -62,7 +62,7 @@ public class Ashmem <: RemoteDataLite {
      * The mapped memory is readable. Default value is 1.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_READ: UInt32 = 1
@@ -71,7 +71,7 @@ public class Ashmem <: RemoteDataLite {
      * The mapped memory is writable. Default value is 2.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static const PROT_WRITE: UInt32 = 2
@@ -84,7 +84,7 @@ public class Ashmem <: RemoteDataLite {
      * @returns { Ashmem } Return the Ashmem object if it is created successfully; return null otherwise.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static func create(name: String, size: Int32): Ashmem {
@@ -109,7 +109,7 @@ public class Ashmem <: RemoteDataLite {
      * @returns { Ashmem } Ashmem object created.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public static func create(ashmem: Ashmem): Ashmem {
@@ -123,7 +123,7 @@ public class Ashmem <: RemoteDataLite {
      * Closes this Ashmem object.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func closeAshmem(): Unit {
@@ -134,7 +134,7 @@ public class Ashmem <: RemoteDataLite {
      * Deletes the mappings for the specified address range of this Ashmem object.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func unmapAshmem(): Unit {
@@ -147,7 +147,7 @@ public class Ashmem <: RemoteDataLite {
      * @returns { Int32 } Memory size mapped.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func getAshmemSize(): Int32 {
@@ -165,7 +165,7 @@ public class Ashmem <: RemoteDataLite {
      * @throws { BusinessException } 1900001 - Failed to call mmap.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func mapTypedAshmem(mapType: UInt32): Unit {
@@ -180,7 +180,7 @@ public class Ashmem <: RemoteDataLite {
      * @throws { BusinessException } 1900001 - Failed to call mmap.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func mapReadWriteAshmem(): Unit {
@@ -195,7 +195,7 @@ public class Ashmem <: RemoteDataLite {
      * @throws { BusinessException } 1900001 - Failed to call mmap.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func mapReadonlyAshmem(): Unit {
@@ -211,7 +211,7 @@ public class Ashmem <: RemoteDataLite {
      * @throws { BusinessException } 1900002 - Failed to call ioctl.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func setProtectionType(protectionType: UInt32): Unit {
@@ -230,7 +230,7 @@ public class Ashmem <: RemoteDataLite {
      * @throws { BusinessException } 1900003 - Failed to write data to the shared memory.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func writeDataToAshmem(buf: Array<Byte>, size: Int64, offset: Int64): Unit {
@@ -256,7 +256,7 @@ public class Ashmem <: RemoteDataLite {
      * @throws { BusinessException } 1900004 - Failed to read data from the shared memory.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     public func readDataFromAshmem(size: Int64, offset: Int64): Array<Byte> {

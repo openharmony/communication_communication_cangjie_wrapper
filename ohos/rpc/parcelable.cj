@@ -25,7 +25,7 @@ import ohos.labels.APILevel
  * they are recovered from the {@link MessageSequence}.
  */
 @!APILevel[
-    22,
+    since: "22",
     syscap: "SystemCapability.Communication.IPC.Core"
 ]
 public interface Parcelable {
@@ -33,7 +33,7 @@ public interface Parcelable {
      * Marshal this {@code Parcelable} object into a {@link MessageSequence}.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     func marshalling(dataOut: MessageSequence): Bool
@@ -42,7 +42,7 @@ public interface Parcelable {
      * Unmarshal this {@code Parcelable} object from a {@link MessageSequence}.
      */
     @!APILevel[
-        22,
+        since: "22",
         syscap: "SystemCapability.Communication.IPC.Core"
     ]
     func unmarshalling(dataIn: MessageSequence): Bool

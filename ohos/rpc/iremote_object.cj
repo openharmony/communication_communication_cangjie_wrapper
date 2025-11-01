@@ -23,10 +23,9 @@ protected interface IRemoteObject {}
 
 foreign func FfiRpcGetRemoteType(objectId: Int64): Int32
 
-const REMOTE_OBJCET_TYPE: Int32 = 0
-const REMOTE_PROXY_TYPE: Int32 = 1
-
 protected func createIRemoteObject(objectId: Int64): IRemoteObject {
+    const REMOTE_OBJCET_TYPE: Int32 = 0
+    const REMOTE_PROXY_TYPE: Int32 = 1
     let remoteType = unsafe { FfiRpcGetRemoteType(objectId) }
     let res: IRemoteObject = if (remoteType == REMOTE_OBJCET_TYPE) {
         RemoteObject(objectId)

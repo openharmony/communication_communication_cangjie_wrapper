@@ -70,7 +70,7 @@ public class MessageSequence <: RemoteDataLite {
     public static func create(): MessageSequence {
         let id: Int64 = unsafe { FfiRpcMessageSequenceImplCreate() }
         if (id < 0) {
-            throw BusinessException(0, "[MessageSequence] create: Failed to create the instance!")
+            throw BusinessException(1900011, "[MessageSequence] create: Failed to create the instance!")
         }
         return MessageSequence(id)
     }

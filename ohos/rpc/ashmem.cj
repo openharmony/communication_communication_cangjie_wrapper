@@ -98,7 +98,7 @@ public class Ashmem <: RemoteDataLite {
             }
             return Ashmem(id)
         }
-        throw BusinessException(0, "Unreachable branch.")
+        throw BusinessException(1900001, "Unreachable branch.")
     }
 
     /**

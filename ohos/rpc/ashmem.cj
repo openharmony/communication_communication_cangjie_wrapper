@@ -78,10 +78,9 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Creates an Ashmem object with the specified name and size.
-     *
      * @param { String } name - Name of the Ashmem object to create.
      * @param { Int32 } size - Size (in bytes) of the Ashmem object to create.
-     * @returns { Ashmem } Return the Ashmem object if it is created successfully; return null otherwise.
+     * @returns { Ashmem } Return the Ashmem object if it is created successfully.
      */
     @!APILevel[
         since: "22",
@@ -104,7 +103,6 @@ public class Ashmem <: RemoteDataLite {
     /**
      * Creates an Ashmem object by copying the file descriptor (FD) of an existing Ashmem object.
      * The two Ashmem objects point to the same shared memory region.
-     *
      * @param { Ashmem } ashmem - Existing Ashmem object.
      * @returns { Ashmem } Ashmem object created.
      */
@@ -143,7 +141,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Obtains the mapped memory size of this Ashmem object.
-     *
      * @returns { Int32 } Memory size mapped.
      */
     @!APILevel[
@@ -160,13 +157,13 @@ public class Ashmem <: RemoteDataLite {
     /**
      * Creates the shared file mapping on the virtual address space of this process.
      * The size of the mapping region is specified by this Ashmem object.
-     *
      * @param { UInt32 } mapType - Protection level of the memory region to which the shared file is mapped.
      * @throws { BusinessException } 1900001 - Failed to call mmap.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func mapTypedAshmem(mapType: UInt32): Unit {
         var errCode = 0i32
@@ -176,12 +173,12 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Maps the shared file to the readable and writable virtual address space of the process.
-     *
      * @throws { BusinessException } 1900001 - Failed to call mmap.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func mapReadWriteAshmem(): Unit {
         var errCode = 0i32
@@ -191,12 +188,12 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Maps the shared file to the read-only virtual address space of the process.
-     *
      * @throws { BusinessException } 1900001 - Failed to call mmap.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func mapReadonlyAshmem(): Unit {
         var errCode = 0i32
@@ -206,13 +203,13 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Sets the protection level of the memory region to which the shared file is mapped.
-     *
      * @param { UInt32 } protectionType - Protection type to set.
      * @throws { BusinessException } 1900002 - Failed to call ioctl.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func setProtectionType(protectionType: UInt32): Unit {
         var errCode = 0i32
@@ -222,7 +219,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Writes data to the shared file associated with this Ashmem object.
-     *
      * @param { Array<Byte> } buf - Data to write
      * @param { Int64 } size - Size of the data to write
      * @param { Int64 } offset - Start position of the data to write in the memory region associated
@@ -231,7 +227,8 @@ public class Ashmem <: RemoteDataLite {
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeDataToAshmem(buf: Array<Byte>, size: Int64, offset: Int64): Unit {
         if (buf.size == 0) {
@@ -248,7 +245,6 @@ public class Ashmem <: RemoteDataLite {
 
     /**
      * Reads data from the shared file associated with this Ashmem object.
-     *
      * @param { Int64 } size - Size of the data to read.
      * @param { Int64 } offset - Start position of the data to read in the memory region associated
      *                   with this Ashmem object.
@@ -257,7 +253,8 @@ public class Ashmem <: RemoteDataLite {
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readDataFromAshmem(size: Int64, offset: Int64): Array<Byte> {
         unsafe {

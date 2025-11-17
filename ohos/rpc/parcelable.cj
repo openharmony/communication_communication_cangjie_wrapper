@@ -21,8 +21,8 @@ import ohos.labels.APILevel
 
 
 /**
- * During inter-process communication, objects of the class are written to the {@link MessageSequence} and
- * they are recovered from the {@link MessageSequence}.
+ * During inter-process communication, objects of the class are written to the MessageSequence and
+ * they are recovered from the MessageSequence.
  */
 @!APILevel[
     since: "22",
@@ -30,7 +30,10 @@ import ohos.labels.APILevel
 ]
 public interface Parcelable {
     /**
-     * Marshal this {@code Parcelable} object into a {@link MessageSequence}.
+     * Marshal this Parcelable object into a MessageSequence.
+     * @param { MessageSequence } dataOut - Indicates the MessageSequence object to which the Parcelable
+     *                            object will be marshalled.
+     * @returns { Bool } Return True if the marshalling is successful; return False otherwise.
      */
     @!APILevel[
         since: "22",
@@ -39,7 +42,10 @@ public interface Parcelable {
     func marshalling(dataOut: MessageSequence): Bool
 
     /**
-     * Unmarshal this {@code Parcelable} object from a {@link MessageSequence}.
+     * Unmarshal this Parcelable object from a MessageSequence.
+     * @param { MessageSequence } dataIn - Indicates the MessageSequence object into
+     *                            which the Parcelable object has been marshalled.
+     * @returns { Bool } Return True if the unmarshalling is successful; return False otherwise.
      */
     @!APILevel[
         since: "22",

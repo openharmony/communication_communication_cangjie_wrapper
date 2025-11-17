@@ -28,21 +28,18 @@ const BYTE_SIZE_64: UIntNative = 8
 
 /**
  * A data object used for remote procedure call (RPC).
- * <p>
- * During RPC, the sender can use the write methods provided by {@link MessageSequence} to
- * write the to-be-sent data into a {@link MessageSequence} object in a specific format, and the receiver can use the
- * read methods provided by {@link MessageSequence} to read data of the specific format from
- * the {@link MessageSequence} object.
- * <p>
- * <p>
- * The default capacity of a {@link MessageSequence} instance is 200KB. If you want more or less,
- * use {@link #setCapacity(int)} to change it.
- * </p>
- * <b>Note</b>: Only data of the following data types can be written into or read from a {@link MessageSequence}:
+ * During RPC, the sender can use the write methods provided by MessageSequence to
+ * write the to-be-sent data into a MessageSequence object in a specific format, and the receiver can use the
+ * read methods provided by MessageSequence to read data of the specific format from
+ * the MessageSequence object.
+ *
+ * The default capacity of a MessageSequence instance is 200KB. If you want more or less,
+ * use setCapacity(int) to change it.
+ * 
+ * Note: Only data of the following data types can be written into or read from a MessageSequence:
  * Int8, Int8Array, Int16, Int16Array, Int32, Int32Array, Int64, Int64Array, Float32, Float32Array, Float64,
  * Float64Array, Bool, BoolArray, UInt8, UInt8Array, String, StringArray,
- * {@link Parcelable}, and ParcelableArray.
- *
+ * Parcelable, and ParcelableArray.
  */
 @!APILevel[
     since: "22",
@@ -58,14 +55,13 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Creates an empty {@link MessageSequence} object.
-     *
+     * Creates an empty MessageSequence object.
      * @returns { MessageSequence } Return the object created.
-     * @throws { BusinessException } 0 - Inner error.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public static func create(): MessageSequence {
         let id: Int64 = unsafe { FfiRpcMessageSequenceImplCreate() }
@@ -76,8 +72,7 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reclaim the {@link MessageSequence} object.
-     *
+     * Reclaim the MessageSequence object.
      */
     @!APILevel[
         since: "22",
@@ -88,14 +83,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes an interface token into the {@link MessageSequence} object.
-     *
+     * Writes an interface token into the MessageSequence object.
      * @param { String } token - Interface descriptor to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeInterfaceToken(token: String): Unit {
         try (ctoken = unsafe { LibC.mallocCString(token).asResource() }) {
@@ -106,14 +101,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads an interface token from the {@link MessageSequence} object.
-     *
+     * Reads an interface token from the MessageSequence object.
      * @returns { String } Return a String value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readInterfaceToken(): String {
         var errCode: Int32 = 0
@@ -127,9 +122,8 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Obtains the size of data (in bytes) contained in the {@link MessageSequence} object.
-     *
-     * @returns { UInt32 } Return the size of data contained in the {@link MessageSequence} object.
+     * Obtains the size of data (in bytes) contained in the MessageSequence object.
+     * @returns { UInt32 } Return the size of data contained in the MessageSequence object.
      */
     @!APILevel[
         since: "22",
@@ -143,9 +137,8 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Obtains the storage capacity (in bytes) of the {@link MessageSequence} object.
-     *
-     * @returns { UInt32 } Return the storage capacity of the {@link MessageSequence} object.
+     * Obtains the storage capacity (in bytes) of the MessageSequence object.
+     * @returns { UInt32 } Return the storage capacity of the MessageSequence object.
      */
     @!APILevel[
         since: "22",
@@ -159,16 +152,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Sets the size of data (in bytes) contained in the {@link MessageSequence} object.
-     * <p>{@code false} is returned if the data size set in this method is greater
-     * than the storage capacity of the {@link MessageSequence}.
-     *
-     * @param { UInt32 } size - Indicates the data size of the {@link MessageSequence} object.
+     * Sets the size of data (in bytes) contained in the MessageSequence object.
+     * False is returned if the data size set in this method is greater
+     * than the storage capacity of the MessageSequence.
+     * @param { UInt32 } size - Indicates the data size of the MessageSequence object.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func setSize(size: UInt32): Unit {
         var errCode: Int32 = 0
@@ -177,17 +170,17 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Sets the storage capacity (in bytes) of the {@link MessageSequence} object.
-     * <p>{@code false} is returned if the capacity set in this method is less than
-     * the size of data contained in the {@link MessageSequence}.
-     *
-     * @param { UInt32 } size - Indicates the storage capacity of the {@link MessageSequence} object.
+     * Sets the storage capacity (in bytes) of the MessageSequence object.
+     * False is returned if the capacity set in this method is less than
+     * the size of data contained in the MessageSequence.
+     * @param { UInt32 } size - Indicates the storage capacity of the MessageSequence object.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      * @throws { BusinessException } 1900011 - Memory allocation failed.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func setCapacity(size: UInt32): Unit {
         var errCode: Int32 = 0
@@ -196,11 +189,10 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Obtains the writable data space (in bytes) in the {@link MessageSequence} object.
-     * <p>Writable data space = Storage capacity of the {@link MessageSequence} – Size of data contained in
-     * the {@link MessageSequence}.
-     *
-     * @returns { UInt32 } Return the writable data space of the {@link MessageSequence} object.
+     * Obtains the writable data space (in bytes) in the MessageSequence object.
+     * Writable data space = Storage capacity of the MessageSequence – Size of data contained in
+     * the MessageSequence.
+     * @returns { UInt32 } Return the writable data space of the MessageSequence object.
      */
     @!APILevel[
         since: "22",
@@ -214,10 +206,9 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Obtains the readable data space (in bytes) in the {@link MessageSequence} object.
-     * <p>Readable data space = Size of data contained in the {@link MessageSequence} – Size of data that has been read.
-     *
-     * @returns { UInt32 } Return the readable data space of the {@link MessageSequence} object.
+     * Obtains the readable data space (in bytes) in the MessageSequence object.
+     * Readable data space = Size of data contained in the MessageSequence – Size of data that has been read.
+     * @returns { UInt32 } Return the readable data space of the MessageSequence object.
      */
     @!APILevel[
         since: "22",
@@ -231,9 +222,8 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Obtains the current read position in the {@link MessageSequence} object.
-     *
-     * @returns { UInt32 } Return the current read position in the {@link MessageSequence} object.
+     * Obtains the current read position in the MessageSequence object.
+     * @returns { UInt32 } Return the current read position in the MessageSequence object.
      */
     @!APILevel[
         since: "22",
@@ -247,9 +237,8 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Obtains the current write position in the {@link MessageSequence} object.
-     *
-     * @returns { UInt32 } Return the current write position in the {@link MessageSequence} object.
+     * Obtains the current write position in the MessageSequence object.
+     * @returns { UInt32 } Return the current write position in the MessageSequence object.
      */
     @!APILevel[
         since: "22",
@@ -263,16 +252,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Changes the current read position in the {@link MessageSequence} object.
-     * <p>Generally, you are advised not to change the current read position. If you must
-     * change it, change it to an accurate position. Otherwise, the read data may be incorrect.
-     *
-     * @param { UInt32 } pos - Indicates the target position to start data reading.
+     * Changes the current write position in the MessageSequence object.
+     * Generally, you are advised not to change the current write position. If you must
+     * change it, change it to an accurate position. Otherwise, the data to be read may be incorrect.
+     * @param { UInt32 } pos - Indicates the target position to start data writing.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func rewindWrite(pos: UInt32): Unit {
         var errCode: Int32 = 0
@@ -281,16 +270,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Changes the current write position in the {@link MessageSequence} object.
-     * <p>Generally, you are advised not to change the current write position. If you must
-     * change it, change it to an accurate position. Otherwise, the data to be read may be incorrect.
-     *
-     * @param { UInt32 } pos - Indicates the target position to start data writing.
+     * Changes the current read position in the MessageSequence object.
+     * Generally, you are advised not to change the current read position. If you must
+     * change it, change it to an accurate position. Otherwise, the read data may be incorrect.
+     * @param { UInt32 } pos - Indicates the target position to start data reading.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func rewindRead(pos: UInt32): Unit {
         var errCode: Int32 = 0
@@ -300,14 +289,14 @@ public class MessageSequence <: RemoteDataLite {
 
     /**
      * Writes information to this MessageSequence object indicating that no exception occurred.
-     * <p>After handling requests, you should call this method before writing any data to reply
-     * {@link MessageSequence}.
-     *
+     * After handling requests, you should call this method before writing any data to reply
+     * MessageSequence.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeNoException(): Unit {
         var errCode: Int32 = 0
@@ -317,15 +306,15 @@ public class MessageSequence <: RemoteDataLite {
 
     /**
      * Reads the exception information from this MessageSequence object.
-     * <p>If exception was thrown in server side, it will be thrown here.
-     * This method should be called before reading any data from reply {@link MessageSequence}
-     * if {@link writeNoException} was invoked in server side.
-     *
+     * If exception was thrown in server side, it will be thrown here.
+     * This method should be called before reading any data from reply MessageSequence
+     * if writeNoException was invoked in server side.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readException(): Unit {
         var errCode: Int32 = 0
@@ -341,14 +330,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int8 value into the {@link MessageSequence} object.
-     *
+     * Writes a Int8 value into the MessageSequence object.
      * @param { Int8 } val - Indicates the Int8 value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeByte(val: Int8): Unit {
         var errCode: Int32 = 0
@@ -357,14 +346,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int16 value into the {@link MessageSequence} object.
-     *
+     * Writes a Int16 value into the MessageSequence object.
      * @param { Int16 } val - Indicates the Int16 value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeShort(val: Int16): Unit {
         var errCode: Int32 = 0
@@ -373,14 +362,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes an Int32 into the {@link MessageSequence} object.
-     *
+     * Writes an Int32 value into the MessageSequence object.
      * @param { Int32 } val - Indicates the Int32 value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeInt(val: Int32): Unit {
         var errCode: Int32 = 0
@@ -389,14 +378,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int64 value into the {@link MessageSequence} object.
-     *
+     * Writes a Int64 value into the MessageSequence object.
      * @param { Int64 } val - Indicates the Int64 value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeLong(val: Int64): Unit {
         var errCode: Int32 = 0
@@ -405,14 +394,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Float32 value into the {@link MessageSequence} object.
-     *
+     * Writes a Float32 value into the MessageSequence object.
      * @param { Float32 } val - Indicates the Float32 value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeFloat(val: Float32): Unit {
         var errCode: Int32 = 0
@@ -421,14 +410,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Float64 value into the {@link MessageSequence} object.
-     *
+     * Writes a Float64 value into the MessageSequence object.
      * @param { Float64 } val - Indicates the Float64 value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeDouble(val: Float64): Unit {
         var errCode: Int32 = 0
@@ -437,14 +426,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Bool value into the {@link MessageSequence} object.
-     *
+     * Writes a Bool value into the MessageSequence object.
      * @param { Bool } val - Indicates the Bool value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeBoolean(val: Bool): Unit {
         let value: Int8 = if (val) {
@@ -458,14 +447,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a UInt8 value into the {@link MessageSequence} object.
-     *
+     * Writes a UInt8 value into the MessageSequence object.
      * @param { UInt8 } val - Indicates the UInt8 value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeChar(val: UInt8): Unit {
         var errCode: Int32 = 0
@@ -474,14 +463,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a String value into the {@link MessageSequence} object.
-     *
+     * Writes a String value into the MessageSequence object.
      * @param { String } val - Indicates the String value to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeString(val: String): Unit {
         let value: CString = unsafe { LibC.mallocCString(val) }
@@ -492,14 +481,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int8 array into the {@link MessageSequence} object.
-     *
+     * Writes a Int8 array into the MessageSequence object.
      * @param { Array<Int8> } byteArray - Indicates the Int8 array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeByteArray(byteArray: Array<Int8>): Unit {
         let value: ByteArray = ByteArray(byteArray)
@@ -510,16 +499,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int16 array into the {@link MessageSequence} object.
+     * Writes a Int16 array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
      * @param { Array<Int16> } shortArray - Indicates the Int16 array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeShortArray(shortArray: Array<Int16>): Unit {
         let value: ShortArray = ShortArray(shortArray)
@@ -530,16 +519,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int32 array into the {@link MessageSequence} object.
+     * Writes a Int32 array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
      * @param { Array<Int32> } intArray - Indicates the Int32 array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeIntArray(intArray: Array<Int32>): Unit {
         let value: CIntArray = CIntArray(intArray)
@@ -550,16 +539,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Int64 array into the {@link MessageSequence} object.
+     * Writes a Int64 array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
      * @param { Array<Int64> } longArray - Indicates the Int64 array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeLongArray(longArray: Array<Int64>): Unit {
         let value: LongArray = LongArray(longArray)
@@ -570,16 +559,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Float32 array into the {@link MessageSequence} object.
+     * Writes a Float32 array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
      * @param { Array<Float32> } floatArray - Indicates the Float32 array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeFloatArray(floatArray: Array<Float32>): Unit {
         let value: FloatArray = FloatArray(floatArray)
@@ -590,16 +579,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Float64 array into the {@link MessageSequence} object.
+     * Writes a Float64 array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
      * @param { Array<Float64> } doubleArray - Indicates the Float64 array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeDoubleArray(doubleArray: Array<Float64>): Unit {
         let value: DoubleArray = DoubleArray(doubleArray)
@@ -610,16 +599,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a Bool array into the {@link MessageSequence} object.
+     * Writes a Bool array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
      * @param { Array<Bool> } booleanArray - Indicates the Bool array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeBooleanArray(booleanArray: Array<Bool>): Unit {
         let byteArr = Array<Int8>(
@@ -640,16 +629,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a UInt8 array into the {@link MessageSequence} object.
+     * Writes a UInt8 array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
      * @param { Array<UInt8> } charArray - Indicates the UInt8 array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeCharArray(charArray: Array<UInt8>): Unit {
         let value: CharArray = CharArray(charArray)
@@ -660,16 +649,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a String array into the {@link MessageSequence} object.
+     * Writes a String array into the MessageSequence object.
      * Ensure that the data type and size comply with the interface definition.
      * Otherwise,data may be truncated.
-     *
-     * @param { Array<String> } StringArray - Indicates the String array to write.
+     * @param { Array<String> } stringArray - Indicates the String array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeStringArray(stringArray: Array<String>): Unit {
         let value: CStringArray = CStringArray(stringArray)
@@ -680,14 +669,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Int8 value from the {@link MessageParcel} object.
-     *
+     * Reads a Int8 value from the MessageSequence object.
      * @returns { Int8 } Return a Int8 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readByte(): Int8 {
         var errCode: Int32 = 0
@@ -697,14 +686,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Int16 value from the {@link MessageSequence} object.
-     *
+     * Reads a Int16 value from the MessageSequence object.
      * @returns { Int16 } Return a Int16 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readShort(): Int16 {
         var errCode: Int32 = 0
@@ -714,14 +703,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads an Int32 value from the {@link MessageSequence} object.
-     *
+     * Reads an Int32 value from the MessageSequence object.
      * @returns { Int32 } Return an Int32 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readInt(): Int32 {
         var errCode: Int32 = 0
@@ -731,14 +720,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Int64 value from the {@link MessageSequence} object.
-     *
+     * Reads a Int64 value from the MessageSequence object.
      * @returns { Int64 } Return a Int64 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readLong(): Int64 {
         var errCode: Int32 = 0
@@ -748,14 +737,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Float32 value from the {@link MessageSequence} object.
-     *
+     * Reads a Float32 value from the MessageSequence object.
      * @returns { Float32 } Return a Float32 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readFloat(): Float32 {
         var errCode: Int32 = 0
@@ -765,14 +754,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Float64 value from the {@link MessageSequence} object.
-     *
+     * Reads a Float64 value from the MessageSequence object.
      * @returns { Float64 } Return a Float64 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readDouble(): Float64 {
         var errCode: Int32 = 0
@@ -782,14 +771,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Bool value from the {@link MessageSequence} object.
-     *
+     * Reads a Bool value from the MessageSequence object.
      * @returns { Bool } Return a Bool value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readBoolean(): Bool {
         var errCode: Int32 = 0
@@ -803,14 +792,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a UInt8 value from the {@link MessageSequence} object.
-     *
+     * Reads a UInt8 value from the MessageSequence object.
      * @returns { UInt8 } Return a UInt8 value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readChar(): UInt8 {
         var errCode: Int32 = 0
@@ -820,14 +809,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a String value from the {@link MessageSequence} object.
-     *
+     * Reads a String value from the MessageSequence object.
      * @returns { String } Return a String value.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readString(): String {
         var errCode: Int32 = 0
@@ -841,14 +830,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Int8 array from the {@link MessageSequence} object.
-     *
+     * Reads a Int8 array from the MessageSequence object.
      * @returns { Array<Int8> } Return a Int8 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readByteArray(): Array<Int8> {
         var errCode: Int32 = 0
@@ -860,14 +849,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Int16 array from the {@link MessageSequence} object.
-     *
+     * Reads a Int16 array from the MessageSequence object.
      * @returns { Array<Int16> } Return a Int16 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readShortArray(): Array<Int16> {
         var errCode: Int32 = 0
@@ -879,14 +868,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads an Int32 array from the {@link MessageSequence} object.
-     *
+     * Reads an Int32 array from the MessageSequence object.
      * @returns { Array<Int32> } Return an Int32 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readIntArray(): Array<Int32> {
         var errCode: Int32 = 0
@@ -898,14 +887,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Int64 array from the {@link MessageSequence} object.
-     *
+     * Reads a Int64 array from the MessageSequence object.
      * @returns { Array<Int64> } Return a Int64 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readLongArray(): Array<Int64> {
         var errCode: Int32 = 0
@@ -917,14 +906,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Float32 array from the {@link MessageSequence} object.
-     *
+     * Reads a Float32 array from the MessageSequence object.
      * @returns { Array<Float32> } Return a Float32 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readFloatArray(): Array<Float32> {
         var errCode: Int32 = 0
@@ -936,14 +925,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Float64 array from the {@link MessageSequence} object.
-     *
+     * Reads a Float64 array from the MessageSequence object.
      * @returns { Array<Float64> } Return a Float64 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readDoubleArray(): Array<Float64> {
         var errCode: Int32 = 0
@@ -955,14 +944,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a Bool array from the {@link MessageSequence} object.
-     *
+     * Reads a Bool array from the MessageSequence object.
      * @returns { Array<Bool> } Return a Bool array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readBooleanArray(): Array<Bool> {
         var errCode: Int32 = 0
@@ -974,14 +963,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a UInt8 array from the {@link MessageSequence} object.
-     *
+     * Reads a UInt8 array from the MessageSequence object.
      * @returns { Array<UInt8> } Return a UInt8 array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readCharArray(): Array<UInt8> {
         var errCode: Int32 = 0
@@ -993,14 +982,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a String array from the {@link MessageSequence} object.
-     *
+     * Reads a String array from the MessageSequence object.
      * @returns { Array<String> } Return a String array.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readStringArray(): Array<String> {
         var errCode: Int32 = 0
@@ -1015,7 +1004,6 @@ public class MessageSequence <: RemoteDataLite {
 
     /**
      * Closes the specified file descriptor.
-     *
      * @param { Int32 } fd - File descriptor to be closed.
      */
     @!APILevel[
@@ -1028,14 +1016,14 @@ public class MessageSequence <: RemoteDataLite {
 
     /**
      * Duplicates the specified file descriptor.
-     *
      * @param { Int32 } fd - File descriptor to be duplicated.
      * @returns { Int32 } Return a duplicated file descriptor.
      * @throws { BusinessException } 1900013 - Failed to call dup.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public static func dupFileDescriptor(fd: Int32): Int32 {
         let dupFd = unsafe { FfiRpcMessageSequenceImplDupFileDescriptor(fd) }
@@ -1046,10 +1034,9 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Checks whether this {@link MessageSequence} object contains a file descriptor.
-     *
-     * @returns { Bool } Return {@code true} if the {@link MessageSequence} object contains a file descriptor;
-     *                      return {@code false} otherwise.
+     * Checks whether this MessageSequence object contains a file descriptor.
+     * @returns { Bool } Return True if the MessageSequence object contains a file descriptor;
+     *                      return False otherwise.
      */
     @!APILevel[
         since: "22",
@@ -1063,14 +1050,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a file descriptor to this {@link MessageSequence} object.
-     *
+     * Writes a file descriptor to this MessageSequence object.
      * @param { Int32 } fd - File descriptor to wrote.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeFileDescriptor(fd: Int32): Unit {
         var errCode: Int32 = 0
@@ -1079,14 +1066,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a file descriptor from this {@link MessageSequence} object.
-     *
+     * Reads a file descriptor from this MessageSequence object.
      * @returns { Int32 } Return a file descriptor obtained.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readFileDescriptor(): Int32 {
         var errCode: Int32 = 0
@@ -1096,14 +1083,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes an anonymous shared memory object to this {@link MessageSequence} object.
-     *
+     * Writes an anonymous shared memory object to this MessageSequence object.
      * @param { Ashmem } ashmem - Anonymous shared memory object to wrote.
      * @throws { BusinessException } 1900003 - Failed to write data to the shared memory.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeAshmem(ashmem: Ashmem): Unit {
         var errCode: Int32 = 0
@@ -1112,14 +1099,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads the anonymous shared memory object from this {@link MessageSequence} object.
-     *
+     * Reads the anonymous shared memory object from this MessageSequence object.
      * @returns { Ashmem } Return the anonymous share object obtained.
      * @throws { BusinessException } 1900004 - Failed to read data from the shared memory.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readAshmem(): Ashmem {
         var errCode: Int32 = 0
@@ -1130,7 +1117,6 @@ public class MessageSequence <: RemoteDataLite {
 
     /**
      * Obtains the maximum amount of raw data that can be sent in a time.
-     *
      * @returns { UInt32 } 128 MB.
      */
     @!APILevel[
@@ -1145,14 +1131,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes the data in an Array<UInt8> object into this {@Link MessageSequence} object.
-     *
+     * Writes the data in an Array<UInt8> object into this MessageSequence object.
      * @param { Array<UInt8> } buf - Data to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeUInt8Array(buf: Array<UInt8>): Unit {
         if (buf.size == 0) {
@@ -1170,14 +1156,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes the data in an Array<UInt16> object into this {@Link MessageSequence} object.
-     *
+     * Writes the data in an Array<UInt16> object into this MessageSequence object.
      * @param { Array<UInt16> } buf - Data to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeUInt16Array(buf: Array<UInt16>): Unit {
         if (buf.size == 0) {
@@ -1195,14 +1181,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes the data in an Array<UInt32> object into this {@Link MessageSequence} object.
-     *
+     * Writes the data in an Array<UInt32> object into this MessageSequence object.
      * @param { Array<UInt32> } buf - Data to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeUInt32Array(buf: Array<UInt32>): Unit {
         if (buf.size == 0) {
@@ -1220,14 +1206,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes the data in an Array<UInt64> object into this {@Link MessageSequence} object.
-     *
+     * Writes the data in an Array<UInt64> object into this MessageSequence object.
      * @param { Array<UInt64> } buf - Data to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeUInt64Array(buf: Array<UInt64>): Unit {
         if (buf.size == 0) {
@@ -1245,14 +1231,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
+     * Reads raw data from this MessageSequence object.
      * @returns { Array<UInt8> } Returns the Array<UInt8> obtained.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readUInt8Array(): Array<UInt8> {
         var errCode: Int32 = 0
@@ -1264,14 +1250,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
+     * Reads raw data from this MessageSequence object.
      * @returns { Array<UInt16> } Returns the Array<UInt16> obtained.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readUInt16Array(): Array<UInt16> {
         var errCode: Int32 = 0
@@ -1283,14 +1269,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
+     * Reads raw data from this MessageSequence object.
      * @returns { Array<UInt32> } Returns the Array<UInt32> obtained.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readUInt32Array(): Array<UInt32> {
         var errCode: Int32 = 0
@@ -1302,14 +1288,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
+     * Reads raw data from this MessageSequence object.
      * @returns { Array<UInt64> } Returns the Array<UInt64> obtained.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readUInt64Array(): Array<UInt64> {
         var errCode: Int32 = 0
@@ -1321,14 +1307,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a {@link Parcelable} object into the {@link MessageSequence} object.
-     *
-     * @param { Parcelable } val - Indicates the {@link Parcelable} object to write.
+     * Writes a Parcelable object into the MessageSequence object.
+     * @param { T } val - Indicates the Parcelable object to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeParcelable<T>(val: T): Unit where T <: Parcelable {
         let pos = getWritePosition()
@@ -1342,16 +1328,16 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads a {@link Parcelable} object from the {@link MessageSequence} instance.
-     *
-     * @param { Parcelable } dataIn - Indicates the {@link Parcelable} object that needs to perform
-     *                       the {@code unmarshalling} operation using the {@link MessageSequence}.
+     * Reads a Parcelable object from the MessageSequence instance.
+     * @param { T } dataIn - Indicates the Parcelable object that needs to perform
+     *                       the unmarshalling operation using the MessageSequence.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      * @throws { BusinessException } 1900012 - Failed to call the JS callback function.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readParcelable<T>(dataIn: T): Unit where T <: Parcelable {
         let len = readInt()
@@ -1363,14 +1349,14 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes a {@link Parcelable} object array into the {@link MessageSequence} object.
-     *
-     * @param { Array<Parcelable> } parcelableArray - Indicates the {@link Parcelable} object array to write.
+     * Writes a Parcelable object array into the MessageSequence object.
+     * @param { Array<T> } parcelableArray - Indicates the Parcelable object array to write.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeParcelableArray<T>(parcelableArray: Array<T>): Unit where T <: Parcelable {
         let pos = getWritePosition()
@@ -1390,15 +1376,15 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads the specified {@link Parcelable} array from this {@link MessageSequence} object.
-     *
-     * @param { Array<Parcelable> } parcelableArray - Parcelable array to read.
+     * Reads the specified Parcelable array from this MessageSequence object.
+     * @param { Array<T> } parcelableArray - Parcelable array to read.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      * @throws { BusinessException } 1900012 - Failed to call the JS callback function.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readParcelableArray<T>(parcelableArray: Array<T>): Unit where T <: Parcelable {
         let arrayLength = readInt()
@@ -1414,15 +1400,15 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Writes raw data to this {@link MessageSequence} object.
-     *
+     * Writes raw data to this MessageSequence object.
      * @param { Array<Byte> } rawData - Raw data to wrote.
      * @param { Int64 } size - Size of the raw data, in bytes.
      * @throws { BusinessException } 1900009 - Failed to write data to the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func writeRawDataBuffer(rawData: Array<Byte>, size: Int64): Unit {
         if (size <= 0 || size > rawData.size) {
@@ -1438,15 +1424,15 @@ public class MessageSequence <: RemoteDataLite {
     }
 
     /**
-     * Reads raw data from this {@link MessageSequence} object.
-     *
+     * Reads raw data from this MessageSequence object.
      * @param { Int64 } size - Size of the raw data to read.
      * @returns { Array<Byte> } Return the raw data obtained, in bytes.
      * @throws { BusinessException } 1900010 - Failed to read data from the message sequence.
      */
     @!APILevel[
         since: "22",
-        syscap: "SystemCapability.Communication.IPC.Core"
+        syscap: "SystemCapability.Communication.IPC.Core",
+        throwexception: true
     ]
     public func readRawDataBuffer(size: Int64): Array<Byte> {
         if (size <= 0) {

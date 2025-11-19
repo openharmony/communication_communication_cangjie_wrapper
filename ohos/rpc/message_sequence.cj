@@ -57,6 +57,7 @@ public class MessageSequence <: RemoteDataLite {
     /**
      * Creates an empty MessageSequence object.
      * @returns { MessageSequence } Return the object created.
+     * @throws { BusinessException } 1900011 - Memory allocation failed.
      */
     @!APILevel[
         since: "22",
@@ -66,7 +67,7 @@ public class MessageSequence <: RemoteDataLite {
     public static func create(): MessageSequence {
         let id: Int64 = unsafe { FfiRpcMessageSequenceImplCreate() }
         if (id < 0) {
-            throw BusinessException(1900011, "[MessageSequence] create: Failed to create the instance!")
+            throw BusinessException(1900011, "Memory allocation failed.")
         }
         return MessageSequence(id)
     }

@@ -37,6 +37,12 @@
       "inner_kits": [
         {
           "name": "//foundation/communication/communication_cangjie_wrapper/ohos/rpc:ohos.rpc"
+        },
+        {
+          "name": "//foundation/communication/communication_cangjie_wrapper:copy_sdk_communication_cangjie_libs"
+        },
+        {
+          "name": "//foundation/communication/communication_cangjie_wrapper:copy_sdk_communication_cangjie_libs_kit"
         }
       ],
       "test": []

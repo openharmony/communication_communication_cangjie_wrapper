@@ -17,9 +17,7 @@
       "standard"
     ],
     "features": [],
-    "syscap": [
-      "SystemCapability.Communication.IPC.Core"
-    ],
+    "syscap": [],
     "rom": "300KB",
     "ram": "228KB",
     "deps": {

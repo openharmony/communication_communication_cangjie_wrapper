@@ -19,7 +19,6 @@ package ohos.rpc
 
 import ohos.ffi.{RemoteDataLite, releaseFFIData}
 import ohos.business_exception.BusinessException
-import std.collection.ArrayList
 import ohos.labels.APILevel
 
 const BYTE_SIZE_16: UIntNative = 2

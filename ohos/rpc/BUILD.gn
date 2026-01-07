@@ -17,17 +17,22 @@ import("//build/ohos.gni")
 import("//build/templates/cangjie/cjc.gni")
 
 ohos_cangjie_shared_library("ohos.rpc") {
-  sources = [
-    "ashmem.cj",
-    "cj_rpc_ffi.cj",
-    "parcelable.cj",
-    "cj_rpc_utils.cj",
-    "iremote_object.cj",
-    "message_sequence.cj",
-    "remote_object.cj",
-    "remote_proxy.cj",
-    "request_result.cj",
-  ]
+
+  if (is_mingw || is_mac){
+    sources = [ "../../mock/ohos.rpc.cj" ]
+  } else {
+    sources = [
+      "ashmem.cj",
+      "cj_rpc_ffi.cj",
+      "parcelable.cj",
+      "cj_rpc_utils.cj",
+      "iremote_object.cj",
+      "message_sequence.cj",
+      "remote_object.cj",
+      "remote_proxy.cj",
+      "request_result.cj",
+    ]
+  }
 
   cj_external_deps = [
     "cangjie_ark_interop:ohos.ffi",

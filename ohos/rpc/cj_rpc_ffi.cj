@@ -158,8 +158,6 @@ foreign {
 
     func FfiRpcMessageSequenceImplReadRemoteObject(id: Int64, errCode: CPointer<Int32>): RetDataI64
 
-    func FfiRpcMessageSequenceImplReadRemoteObjectArray(id: Int64, errCode: CPointer<Int32>): RemoteObjectArray
-
     func FfiRpcMessageSequenceImplCloseFileDescriptor(fd: Int32): Unit
 
     func FfiRpcMessageSequenceImplDupFileDescriptor(fd: Int32): Int32

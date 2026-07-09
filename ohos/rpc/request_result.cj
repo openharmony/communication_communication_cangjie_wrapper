@@ -382,28 +382,3 @@ struct CStringArray {
         }
     }
 }
-
-@C
-struct RemoteObjectArray {
-    let objectType: CPointer<Int32>
-    let id: CPointer<Int64>
-    let len: UInt32
-
-    init(arr: Array<IRemoteObject>) {
-        if (arr.size == 0) {
-            this.objectType = CPointer<Int32>()
-            this.id = CPointer<Int64>()
-            this.len = 0
-        } else {
-            unsafe {
-                this.objectType = safeMalloc<Int32>(count: arr.size)
-                this.id = safeMalloc<Int64>(count: arr.size)
-                for (i in 0..arr.size) {
-                    objectType.write(i, 0)
-                    id.write(i, 1)
-                }
-                this.len = UInt32(arr.size)
-            }
-        }
-    }
-}

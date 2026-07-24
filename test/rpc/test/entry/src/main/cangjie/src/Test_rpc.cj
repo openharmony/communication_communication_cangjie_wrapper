@@ -624,6 +624,159 @@ class Test_rpc {
 
         }
     }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_emptyArrayReadWrite(): Unit {
+        let data1 = MessageSequence.create()
+        data1.writeByteArray([])
+        @Expect(data1.readByteArray().size, 0)
+        data1.reclaim()
+
+        let data2 = MessageSequence.create()
+        data2.writeShortArray([])
+        @Expect(data2.readShortArray().size, 0)
+        data2.reclaim()
+
+        let data3 = MessageSequence.create()
+        data3.writeIntArray([])
+        @Expect(data3.readIntArray().size, 0)
+        data3.reclaim()
+
+        let data4 = MessageSequence.create()
+        data4.writeLongArray([])
+        @Expect(data4.readLongArray().size, 0)
+        data4.reclaim()
+
+        let data5 = MessageSequence.create()
+        data5.writeFloatArray([])
+        @Expect(data5.readFloatArray().size, 0)
+        data5.reclaim()
+
+        let data6 = MessageSequence.create()
+        data6.writeDoubleArray([])
+        @Expect(data6.readDoubleArray().size, 0)
+        data6.reclaim()
+
+        let data7 = MessageSequence.create()
+        data7.writeCharArray([])
+        @Expect(data7.readCharArray().size, 0)
+        data7.reclaim()
+
+        let data8 = MessageSequence.create()
+        data8.writeStringArray([])
+        @Expect(data8.readStringArray().size, 0)
+        data8.reclaim()
+
+        let data9 = MessageSequence.create()
+        data9.writeBooleanArray([])
+        @Expect(data9.readBooleanArray().size, 0)
+        data9.reclaim()
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_writeEmptyUIntArrayException(): Unit {
+        let data = MessageSequence.create()
+        try {
+            data.writeUInt8Array([])
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 1900009)
+        }
+        try {
+            data.writeUInt16Array([])
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 1900009)
+        }
+        try {
+            data.writeUInt32Array([])
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 1900009)
+        }
+        try {
+            data.writeUInt64Array([])
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 1900009)
+        }
+        data.reclaim()
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_readParcelableArraySizeMismatch(): Unit {
+        let data = MessageSequence.create()
+        let parcelable = MyParcelable(1, "aaa")
+        data.writeParcelableArray(parcelable)
+        let ret: Array<Parcelable> = [MyParcelable(0, ""), MyParcelable(0, "")]
+        try {
+            data.readParcelableArray(ret)
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 401)
+        }
+        data.reclaim()
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_writeRawDataBufferInvalidSize(): Unit {
+        let data = MessageSequence.create()
+        let buffer = Array<Byte>(10, repeat: 1)
+        try {
+            data.writeRawDataBuffer(buffer, 0)
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 401)
+        }
+        try {
+            data.writeRawDataBuffer(buffer, 20)
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 401)
+        }
+        data.reclaim()
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_readRawDataBufferInvalidSize(): Unit {
+        let data = MessageSequence.create()
+        try {
+            let _ = data.readRawDataBuffer(0)
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 401)
+        }
+        data.reclaim()
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_ashmemCreateEmptyName(): Unit {
+        try {
+            let _ = Ashmem.create("", 1024i32)
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 401)
+        }
+    }
+
+    @TestCase
+    @Tag[APILevel22, TestLevel0]
+    func test_writeEmptyDataToAshmem(): Unit {
+        let ashmem = Ashmem.create("test_ashmem", 1024i32)
+        try {
+            ashmem.writeDataToAshmem([], 0, 0)
+            @Assert(false)
+        } catch (e: BusinessException) {
+            @Expect(e.code, 1900003)
+        }
+        ashmem.closeAshmem()
+    }
 }
 
 class MyParcelable <: Parcelable {
